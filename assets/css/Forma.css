@@ -1,0 +1,24 @@
+.campo_nombre{
+	color: #17a2b8 !important;
+	font-size: 14px;
+}
+.help-block {
+	color: #dc3545 !important;
+	font-size: 14px;
+}
+.label-control {
+	color: #002b59;
+	font-weight: 500 !important;
+	
+}
+.lbl-sub {
+	font-size: 14px;
+}
+.chart_div{
+	width: 100%;
+	height: 500px;
+}
+.text-navy {
+	color: darkcyan;
+	margin-left: 3px;
+}
