@@ -68,6 +68,7 @@ class ControladorBase{
 		$controlador = $this->getControlador();
 		if($cat_usuario_id=="" && $this->getAutentificar()){
 			$url_uri = ($controlador!="")? $_SERVER['REQUEST_URI'] : "";
+			
 			//Antes de autentificar, se va a desautentificar para eliminar lo que haya quedado de la variable de sessión
 			redireccionar('desautentificar', 'inicio', '', $url_uri);
 		}

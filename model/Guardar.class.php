@@ -18,22 +18,7 @@ class Guardar{
 	 */
 	public function setGuardaCatalogo($arr_cmps, $tbl_cat_nom, $cmp_id_val){
 		$cmp_id_nom = $tbl_cat_nom."_id";	//cat_usuario + _id
-		if($cmp_id_val){
-			//Modificar registro
-			$arr_act = array();
-			foreach($arr_cmps as $cmp_nom => $cmp_val){
-				if($cmp_nom!=$cmp_id_nom){
-					$arr_act[] = "`".$cmp_nom."` = ".$cmp_val;
-				}
-			}
-			$qry_act = "UPDATE `".$this->bd->getBD()."`.`".$tbl_cat_nom."` SET ".implode(",", array_values($arr_act))." WHERE `".$cmp_id_nom."` ='".$cmp_id_val."' LIMIT 1;";
-			$this->bd->ejecutaQry($qry_act);
-		}else{
-			//Nuevo registro
-			$qry_act = "INSERT INTO `".$this->bd->getBD()."`.`".$tbl_cat_nom."` (".implode(",",array_keys($arr_cmps)).") VALUES (".implode(",",array_values($arr_cmps)).");";
-			$cmp_id_val = $this->bd->ejecutaQryInsert($qry_act);
-		}
-		$this->cmp_id_val = $cmp_id_val;
+		$this->setGuardaRegistro($arr_cmps, $tbl_cat_nom, $cmp_id_nom, $cmp_id_val);
 	}
 	/**
 	 * Ejecuta el guardado para cuando el registro es de tipo cuestionario
@@ -65,6 +50,31 @@ class Guardar{
 		$this->cmp_id_val = $cuestionario_id;
 		$log->setRegLog('cuestionario_id', $cuestionario_id, 'setGuardaCuest', 'Aviso', $txt_log);
 	}
+	/**
+	 * Ejecuta el guardado para cuando el registro es de tipo catálogo
+	 * @param array $arr_cmps	Arreglo de campos a ser actualizados o insertados
+	 * @param string $tbl_cat_nom
+	 * @param string $cmp_id_val
+	 */
+	public function setGuardaRegistro($arr_cmps, $tbl_cat_nom, $cmp_id_nom, $cmp_id_val){
+		if($cmp_id_val){
+			//Modificar registro
+			$arr_act = array();
+			foreach($arr_cmps as $cmp_nom => $cmp_val){
+				if($cmp_nom!=$cmp_id_nom){
+					$arr_act[] = "`".$cmp_nom."` = ".$cmp_val;
+				}
+			}
+			$qry_act = "UPDATE `".$this->bd->getBD()."`.`".$tbl_cat_nom."` SET ".implode(",", array_values($arr_act))." WHERE `".$cmp_id_nom."` ='".$cmp_id_val."' LIMIT 1;";
+			$this->bd->ejecutaQry($qry_act);
+		}else{
+			//Nuevo registro
+			$qry_act = "INSERT INTO `".$this->bd->getBD()."`.`".$tbl_cat_nom."` (".implode(",",array_keys($arr_cmps)).") VALUES (".implode(",",array_values($arr_cmps)).");";
+			$cmp_id_val = $this->bd->ejecutaQryInsert($qry_act);
+		}
+		$this->cmp_id_val = $cmp_id_val;
+	}
+	
 	public function setNuevoCuestionario($arr_lista_tablas, $cat_cuestionario_id, $cat_usuario_id){
 		//Nuevo registro
 		$log = new Log();

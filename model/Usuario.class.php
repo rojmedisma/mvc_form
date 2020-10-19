@@ -29,8 +29,11 @@ class Usuario {
 		if($this->getCatUsuarioId()!=""){
 			$this->setArrTblCatUsuario(" AND `cat_usuario_id` LIKE '".$this->getCatUsuarioId()."'");
 			$arr_tbl = $this->getArrTblCatUsuario();
-			$arr_usuario = $arr_tbl[0];
-			$arr_usuario['nombre_completo'] = trim($arr_usuario['ap_paterno'].' '.trim($arr_usuario['ap_materno'].' '.trim($arr_usuario['nombre'])));
+			if(!empty($arr_tbl)){
+				$arr_usuario = $arr_tbl[0];
+				$arr_usuario['nombre_completo'] = trim($arr_usuario['ap_paterno'].' '.trim($arr_usuario['ap_materno'].' '.trim($arr_usuario['nombre'])));
+			}
+			
 		}
 		$this->arr_usuario = $arr_usuario;
 	}

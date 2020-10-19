@@ -77,7 +77,7 @@ class BaseDatos extends Ayuda{
 		$rs = $this->mysqli->query($qry);
 		if(!$rs)	die($this->getTagErrorSQL($qry));
 		$row = $rs->fetch_assoc();
-		$campo = $row[$id];
+		$campo = isset($row[$id])? $row[$id]: null;
 		$rs->close();
 		$this->qry = $qry;
 		return $campo;

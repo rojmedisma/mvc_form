@@ -40,6 +40,14 @@ function url_controlador($controlador=CONTROLADOR_DEFECTO,$accion=ACCION_DEFECTO
  */
 function redireccionar($controlador=CONTROLADOR_DEFECTO,$accion=ACCION_DEFECTO, $arr_url_arg=array(), $url_uri=""){
 	if($_REQUEST['controlador'] == $controlador && $_REQUEST['accion'] == $accion){
+		
+		//echo "<br>".$_REQUEST['controlador'];
+		//echo "<br>".$controlador;
+		//echo "<br>".$_REQUEST['accion'];
+		//echo "<br>".$accion;
+		//die();
+		
+		$tag_li_err = '';
 	    if($controlador =='error' && $accion=='sin_ruta'){
 	        $tag_li_err = '<li>Revisar que en la carpeta <em>view</em> correspondiente, exista el archivo <em>Error.php</em></li>';
 	    }

@@ -29,6 +29,8 @@ if(class_exists($clase_controlador)){
 	}
 	$controlador_obj = new $clase_controlador();
 	
+	
+	
 	//Se valida la sesion a menos que el controlador no lo permita
 	if($controlador_obj->getAutentificar()){
 		$controlador_obj->setValidaSesion();	//De ControladorBase
