@@ -6,6 +6,7 @@
 ### Carpeta de librearías externas (AdminLTE, Bootstrap) ###
 library/
 no_publicar/
+nbproject/
 # Created by https://www.gitignore.io/api/windows
 # Edit at https://www.gitignore.io/?templates=windows
 ### Windows ###

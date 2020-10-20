@@ -40,3 +40,16 @@ En esta versión se toman los ajustes implementadios en el sistema taller_csp. E
 - Se sustituyó la función url_controlador por define_controlador
 - Clase modelo **AlertaGenerica**. Se corrigió el llamado a las librerias **Bootstrap**
 - Clase modelo **CampoAtributo**. Se eliminó clase con archivo contenedor **CampoAtributo.class.php**.
+
+## Versión 1.0.1.5
+
+> Cambios en la plataforma MVC
+
+- Clase modelo **Log**. Se agregó columna **remote_addr**
+- Archivo vista **DropdownUserMenu.php**. Se eliminó.
+- Archivo vista **EnAside.php**. Se eliminó.
+- Archivo vista **EnMainSidebar.php**. Se eliminó.
+- Archivo vista **EnNavbar.php**. Se eliminó.
+- Archivo vista **EnNavbarTopNav.php**. Se eliminó.
+- Archivo vista **FrmCeroMML.php**. Se eliminó.
+- Archivo vista **ScriptMainSB.php**. Se eliminó.

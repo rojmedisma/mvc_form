@@ -50,10 +50,6 @@
 				<!-- /.content -->
 			</div>
 			<!-- /.content-wrapper -->
-			<!-- Control Sidebar -->
-			<aside class="control-sidebar control-sidebar-dark">
-				<?php include_once 'modulos/EnAside.php'; ?>
-			</aside>
 			<!-- /.control-sidebar -->
 			<!-- Main Footer -->
 			<footer class="main-footer">
