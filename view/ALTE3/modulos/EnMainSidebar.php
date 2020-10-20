@@ -19,7 +19,7 @@ if($controlador_act=="mml_indicador" && $controlador_obj->getIndFolio() ){
 	$accion_act_sel_vista = ($controlador_obj->getPestaniaVistaAct()!="")? $controlador_obj->getPestaniaVistaAct() : "vista_ind";
 	$arr_tag_forma = array();
 	$arr_tag_forma[] = '<li class="nav-item">';
-	$arr_tag_forma[] = '	<a id="'.$sb_mnu_opc_activo.'" href="'.url_controlador("mml_indicador",$accion_act_sel_frm,"",true).'" class="nav-link">';
+	$arr_tag_forma[] = '	<a id="'.$sb_mnu_opc_activo.'" href="'.define_controlador("mml_indicador",$accion_act_sel_frm,true).'" class="nav-link">';
 	$arr_tag_forma[] = '		<i class="nav-icon fas fa-clipboard-list"></i><p>'.$txt_mnu.'</p>';
 	$arr_tag_forma[] = '	</a>';
 	$arr_tag_forma[] = '</li>';
@@ -43,13 +43,13 @@ if($controlador_act=="mml_indicador" && $controlador_obj->getIndFolio() ){
 					<nav class="mt-2">
 						<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 							<li class="nav-item">
-								<a id="a_mnu_opc_inicio" href="<?php echo url_controlador()?>" class="nav-link">
+								<a id="a_mnu_opc_inicio" href="<?php echo define_controlador()?>" class="nav-link">
 									<i class="nav-icon fas fa-home"></i><p>Inicio</p>
 								</a>
 							</li>
 							<li class="nav-header">INDICADORES MML</li>
 							<li class="nav-item">
-								<a id="a_mnu_opc_vista" href="<?php echo url_controlador("mml_indicador",$accion_act_sel_vista,"",true)?>" class="nav-link">
+								<a id="a_mnu_opc_vista" href="<?php echo define_controlador("mml_indicador",$accion_act_sel_vista,true)?>" class="nav-link">
 									<i class="nav-icon fas fa-th-list"></i><p>Consulta</p>
 								</a>
 							</li>

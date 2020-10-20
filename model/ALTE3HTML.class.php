@@ -20,7 +20,7 @@ class ALTE3HTML{
 		$this->setArrAtrib($this->arr_atrib_li_nav_item, $arr_atrib_usu);
 		$arr_tag = array();
 		$arr_tag[] = '<li class="'.$this->getAtrib('class').'">';
-		$arr_tag[] = '	<a href="'. url_controlador($controlador, $accion).'" class="nav-link">'.$a_contenido.'</a>';
+		$arr_tag[] = '	<a href="'. define_controlador($controlador, $accion).'" class="nav-link">'.$a_contenido.'</a>';
 		$arr_tag[] = '</li>';
 		$this->html_contenido = tag_string($arr_tag);
 	}

@@ -26,7 +26,7 @@
                     </div>
                     <?php } ?>
 					<p class="login-box-msg">Iniciar sesión</p>
-					<form action="<?php echo url_controlador('autentificar','autentificar', '', false) ?>" method="post">
+					<form action="<?php echo define_controlador('autentificar','autentificar') ?>" method="post">
 						<div class="input-group mb-3">
 							<input name="usuario" id="usuario" type="text" class="form-control" placeholder="Usuario">
 							<div class="input-group-append">

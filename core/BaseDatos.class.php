@@ -56,7 +56,7 @@ class BaseDatos extends Ayuda{
 		$txt_desc = '<br><strong>Error en query:</strong><br>'.$qry.'<br>'.$this->mysqli->errno.'<br>'.$this->mysqli->error;
 		$txt_desc .= $this->getTxtAdicionalError();
 		if(!$sin_libreria){
-			$txt_desc .= '<p class="text-center"><a href="'.url_controlador(CONTROLADOR_DEFECTO,ACCION_DEFECTO,'',false).'" class="btn btn-primary">Ir a página principal</a></p>';
+			$txt_desc .= '<p class="text-center"><a href="'.define_controlador(CONTROLADOR_DEFECTO,ACCION_DEFECTO).'" class="btn btn-primary">Ir a página principal</a></p>';
 		}		
 		return $this->getTagError($txt_tit, $txt_desc, $sin_libreria);
 	}

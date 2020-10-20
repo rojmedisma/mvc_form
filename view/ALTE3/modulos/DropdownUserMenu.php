@@ -36,10 +36,10 @@ $arr_usuario = (object) $controlador_obj->getArrUsuario();
 			<!-- Menu Footer-->
 			<li class="user-footer">
 				<div class="pull-left">
-					<a href="<?php echo url_controlador('cat_usuario','abrir',array("cat_usuario_id"=>$arr_usuario->cat_usuario_id)); ?>" class="btn btn-default btn-flat">Ir a perfil</a>
+					<a href="<?php echo define_controlador('cat_usuario','abrir',true, array("cat_usuario_id"=>$arr_usuario->cat_usuario_id)); ?>" class="btn btn-default btn-flat">Ir a perfil</a>
 				</div>
 				<div class="pull-right">
-					<a href="<?php echo url_controlador('desautentificar','inicio'); ?>" class="btn btn-default btn-flat">Cerrar sesión</a>
+					<a href="<?php echo define_controlador('desautentificar','inicio', true); ?>" class="btn btn-default btn-flat">Cerrar sesión</a>
 				</div>
 			</li>
 		</ul>

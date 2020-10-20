@@ -11,6 +11,6 @@
 				<!-- Right navbar links -->
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item">
-						<a class="nav-link" href="<?php echo url_controlador('desautentificar','inicio'); ?>" title="Cerrar Sesión"><i class="fas fa-sign-out-alt mr2"></i></a>
+						<a class="nav-link" href="<?php echo define_controlador('desautentificar','inicio'); ?>" title="Cerrar Sesión"><i class="fas fa-sign-out-alt mr2"></i></a>
 					</li>
 				</ul>

@@ -6,7 +6,9 @@
  */
 class PruebasControl extends ControladorBase{
 	public function inicio() {
-		$this->redireccionaError("Prueba", "Para ver si jalaba");
+		$cat_estado = new CatEstado();
+		$cat_estado->setArrTbl();
+		echo json_encode($cat_estado->getArrTbl());
 		$this->setMostrarVista("Pruebas.php");
 	}
 }

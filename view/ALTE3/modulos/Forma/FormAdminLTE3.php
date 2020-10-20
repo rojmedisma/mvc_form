@@ -1,5 +1,5 @@
 <!-- Forma AdminLTE3 -->
-<form role="form" method="post" action="<?php echo url_controlador('formulario','guardar', '', false) ?>">
+<form role="form" method="post" action="<?php echo define_controlador('formulario','guardar') ?>">
 	<?php echo $controlador_obj->frm_al3->cmpOculto('cuestionario_id', $controlador_obj->getCampoValor('cuestionario_id'));?>
 	<div class="row">
 		<div class="col-md-6">

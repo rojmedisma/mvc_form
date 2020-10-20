@@ -25,9 +25,9 @@ class AlertaGenerica{
 		$arr_tag[] = '<head>';
 		$arr_tag[] = '	<meta charset="'.HTML_CODIFICACION.'">';
 		$arr_tag[] = '	<meta name="viewport" content="width=device-width, initial-scale=1">';
-		$arr_tag[] = '	<link rel="stylesheet" href="/'.DIR_LOCAL.'/library/bootstrap-3.3.7/css/bootstrap.min.css">';
-		$arr_tag[] = '	<script src="/'.DIR_LOCAL.'/library/jquery-3.3.1/jquery.min.js"></script>';
-		$arr_tag[] = '	<script src="/'.DIR_LOCAL.'/library/bootstrap-3.3.7/js/bootstrap.min.js"></script>';
+		$arr_tag[] = '	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">';
+		$arr_tag[] = '	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>';
+		$arr_tag[] = '	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>';
 		$arr_tag[] = '</head>';
 		return tag_string($arr_tag);
 	}
@@ -40,7 +40,7 @@ class AlertaGenerica{
 	 */
 	private function getTagAlerta($txt_tit, $txt_desc, $alerta){
 		$arr_tag= array();
-		$arr_tag[] = '<div class="alert alert-'.$alerta.'">';
+		$arr_tag[] = '<div class="alert alert-'.$alerta.' mt-5">';
 		$arr_tag[] = '	<strong>';
 		$arr_tag[] = '		'.$txt_tit;
 		$arr_tag[] = '	</strong>';

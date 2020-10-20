@@ -3,7 +3,7 @@
  */
 
 /**
- * Redirecciona al control especificado, se llega a llamar por la función php url_controlador
+ * Redirecciona al control especificado, se llega a llamar por la función php define_controlador
  * @param v_forma	Nombre de la forma con al que se hace el submit
  * @param v_controlador	Nombre del controlador
  * @param v_accion	Nombre de la acción

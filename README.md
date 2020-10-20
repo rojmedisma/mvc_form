@@ -32,3 +32,11 @@ En esta versión se toman los ajustes implementadios en el sistema taller_csp. E
 
 - Nuevo controlador **PruebasControl**
 - Nueva vista **Pruebas**
+
+## Versión 0.3.1.5
+
+> Cambios en la plataforma MVC
+
+- Se sustituyó la función url_controlador por define_controlador
+- Clase modelo **AlertaGenerica**. Se corrigió el llamado a las librerias **Bootstrap**
+- Clase modelo **CampoAtributo**. Se eliminó clase con archivo contenedor **CampoAtributo.class.php**.

@@ -11,24 +11,23 @@
 function tag_string($arr_tag){
 	return str_replace("	", "", implode("\n", $arr_tag));
 }
+
 /**
  * Provee la sentencia con los argumentos necesarios para el redireccionamiento
  * @param string $controlador	Nombre del controlador
  * @param string $accion	Nombre de la acción
- * @param array $arr_url_arg	Arreglo de argumentos complementarios (nombre=>valor)
  * @param boolean $por_js	Si la sentencia va a ser a través de Javascript, se activa el atributo
+ * @param array $arr_url_arg	Arreglo de argumentos complementarios (nombre=>valor)
  * @param boolean $campo_x_arg	Si se activa, en la forma donde se hace el submit debe exitir un campo por cada valor en el arreglo $arr_url_arg, ademas de tener en true $por_js
  * @return string
  */
-function url_controlador($controlador=CONTROLADOR_DEFECTO,$accion=ACCION_DEFECTO, $arr_url_arg=array(), $por_js=true, $campo_x_arg=false){
+function define_controlador($controlador=CONTROLADOR_DEFECTO,$accion=ACCION_DEFECTO, $por_js=false, $arr_url_arg=array(), $campo_x_arg=false){
 	$arg_url_arg = (is_array($arr_url_arg) && count($arr_url_arg))? "&".http_build_query($arr_url_arg) : "";
-	$campo_x_arg_encode = "";
 	if($por_js){
 		$urlString="javaScript:f_ir_a_controlador('frm_cero', '".$controlador."','".$accion."', '".$arg_url_arg."', $campo_x_arg)";
 	}else{
 		$urlString="index.php?controlador=".$controlador."&accion=".$accion.$arg_url_arg;
 	}
-	
 	return $urlString;
 }
 /**

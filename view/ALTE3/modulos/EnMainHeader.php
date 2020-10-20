@@ -1,7 +1,7 @@
 <!-- Cabecera para Top Navigation -->
 <!-- main-header -->
 				<div class="container-fluid">
-					<a href="<?php echo url_controlador()?>" class="navbar-brand">
+					<a href="<?php echo define_controlador()?>" class="navbar-brand">
 						<span class="brand-text font-weight-light"><?php echo TIT_CORTO_P1." ".TIT_CORTO_P2?></span>
 					</a>
 					<button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,12 +23,12 @@
 								<div class="dropdown-divider"></div>
 								
 								<div class="dropdown-divider"></div>
-								<a href="<?php echo url_controlador('desautentificar','inicio'); ?>" class="dropdown-item"><i class="fas fa-sign-out-alt mr2"></i> Cerrar Sesión
+								<a href="<?php echo define_controlador('desautentificar','inicio'); ?>" class="dropdown-item"><i class="fas fa-sign-out-alt mr2"></i> Cerrar Sesión
 								</a>
 							</div>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="<?php echo url_controlador('desautentificar','inicio'); ?>" title="Cerrar Sesión"><i class="fas fa-sign-out-alt mr2"></i></a>
+							<a class="nav-link" href="<?php echo define_controlador('desautentificar','inicio'); ?>" title="Cerrar Sesión"><i class="fas fa-sign-out-alt mr2"></i></a>
 						</li>
 					</ul>
 				</div>
