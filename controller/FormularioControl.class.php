@@ -6,6 +6,7 @@ class FormularioControl extends ControladorBase{
 	public array $arr_tmp_options = array();
 	private array $arr_reglas_val = array();
 	public function forma() {
+		$this->setArrHTMLTagLiNavItem();
 		
 		$bd = new BaseDatos();
 		
@@ -141,5 +142,15 @@ class FormularioControl extends ControladorBase{
 		
 		$this->arr_reglas_val = $arr_reglas_val;
 	}
-	
+	private function setArrHTMLTagLiNavItem(){
+		$arr_li_nav_item = array();
+		$alte3_html = new ALTE3HTML();
+		if($this->tienePermiso('cat_usuario')){
+			$alte3_html->setHTMLLiNavItem('cat_usuario', 'vista', 'Catálogo de usuarios');
+			$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
+		}
+		$alte3_html->setHTMLLiNavItem('pruebas', 'inicio', 'Pruebas');
+		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
+		$this->arr_html_tag['li_nav_item'] = $arr_li_nav_item;
+	}
 }

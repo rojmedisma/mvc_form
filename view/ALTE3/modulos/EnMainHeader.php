@@ -9,11 +9,7 @@
 					</button>
 					<div class="collapse navbar-collapse order-3" id="navbarCollapse">
 						<ul class="navbar-nav">
-							<?php if($controlador_obj->tienePermiso("cat_usuario")){?>
-							<li class="nav-item">
-								<a href="<?php echo url_controlador('cat_usuario','vista'); ?>" class="nav-link">Catálogo de usuarios</a>
-							</li>
-							<?php }?>
+							<?php echo $controlador_obj->getHTMLTag('li_nav_item'); ?>
 						</ul>
 					</div>
 					<!-- Right navbar links -->

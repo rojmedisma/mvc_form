@@ -14,6 +14,7 @@ class ErrorControl extends ControladorBase{
 		$this->setMostrarVista('Error.php');
 	}
 	/**
+	 * 
 	 * Devuelve el título del error
 	 * @return string
 	 */
@@ -33,6 +34,10 @@ class ErrorControl extends ControladorBase{
 	public function inicio(){
 		$this->tit_error= (isset($_REQUEST['tit_error']))? $_REQUEST['tit_error'] : 'Error interno';
 		$this->txt_error= (isset($_REQUEST['txt_error']))? $_REQUEST['txt_error'] : 'No se pudo identificar el error';
+	}
+	public function interno() {
+		$this->inicio();
+		$this->txt_error = $this->txt_error."<br>Favor de contactar al administrador del sistema. Gracias.";
 	}
 	/**
 	 * Acción que despliega el error al tratar de identificar una ruta de archivo. Esto sucede cuando el nombre del archivo que se obtiene a partir del controlador y usado para también identificar la ruta, no coincide o no existe
@@ -118,7 +123,7 @@ class ErrorControl extends ControladorBase{
 	 * Acción que despliega el error de campo vacío cuando el valor de dicho campo es requerido
 	 */
 	public function valor_de_campo_vacio(){
-		$tbl_nom = (isset($_REQUEST['tbl_nom']))? $_REQUEST['tbl_nom'] : '[Nombre de tabla no identificada ]';
+		$tbl_nom = (isset($_REQUEST['tbl_nom']))? $_REQUEST['tbl_nom'] : '[Nombre de tabla no identificada]';
 		$cmp_nom = (isset($_REQUEST['cmp_nom']))? $_REQUEST['cmp_nom'] : '[Nombre de campo no identificado]';
 		$this->tit_error = "Valor de campo vacío";
 		$this->txt_error = "El valor del campo <em>".$cmp_nom."</em> perteneciente a la tabla <em>".$tbl_nom."</em>; se encuentra vacío y se requiere que tenga información.";

@@ -4,6 +4,8 @@ class CatCuestModulo extends ModeloBase{
 	private $cat_cuestionario_id;
 	public function __construct($cat_cuestionario_id){
 		parent::__construct();
+		$this->tbl_nom = "cat_cuest_modulo";
+		$this->cmp_id_nom = $this->tbl_nom."_id";
 		$this->cat_cuestionario_id = $cat_cuestionario_id;
 	}
 	/**
@@ -12,14 +14,14 @@ class CatCuestModulo extends ModeloBase{
 	 */
 	public function setArrTblCat($and="") {
 		$and_c = " AND `cat_cuestionario_id` = '".$this->getCatCuestionarioId()."' ".$and;
-		$this->setArrTbl("cat_cuest_modulo", $and_c);
+		$this->setArrTbl($and_c);
 	}
 	/**
 	 * Genera el arreglo con el contenido del registro de la tabla cat_cuest_modulo a partir del id cat_cuest_modulo_id
 	 * @param integer $cat_cuest_modulo_id
 	 */
 	public function setArrRegCat($cat_cuest_modulo_id){
-		$this->setArrReg("cat_cuest_modulo", "cat_cuest_modulo_id", $cat_cuest_modulo_id);
+		$this->setArrReg($cat_cuest_modulo_id);
 	}
 	/**
 	 * Genera arreglo con la lista de tablas del campo lista_tablas

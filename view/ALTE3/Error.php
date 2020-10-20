@@ -7,7 +7,7 @@
 		<div class="wrapper">
 			<!-- Navbar -->
 			<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
-				<?php include_once 'modulos/EnNavbarTopNav.php'; ?>
+				<?php include_once 'modulos/EnMainHeader.php';?>
 			</nav>
 			<!-- /.navbar -->
 			<!-- Content Wrapper. Contains page content -->

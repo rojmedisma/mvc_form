@@ -85,8 +85,7 @@ class CuestionarioControl extends ControladorBase{
 			$nom_arc_vista = strtoupper(cuest_cve($this->getCatCuestionarioId()))."Vista.php";
 			$this->setMostrarVista($nom_arc_vista);
 		}else{
-			redireccionar("error","sin_arg_cat_cuestionario_id");
-			die();
+			$this->redireccionaErrorAccion("sin_arg_cat_cuestionario_id");
 		}
 	}
 	/**
@@ -120,8 +119,7 @@ class CuestionarioControl extends ControladorBase{
 			}
 			
 		}else{
-			redireccionar("error","sin_id_cuest");
-			die();
+			$this->redireccionaErrorAccion("sin_id_cuest");
 		}
 		$this->arr_validaciones = $arr_validaciones;
 		
@@ -157,8 +155,7 @@ class CuestionarioControl extends ControladorBase{
 		$ccm_siguiente = (isset($_REQUEST['ccm_siguiente']))? intval($_REQUEST['ccm_siguiente']) : "";
 		
 		if(!$this->getCatCuestModuloId()){
-			redireccionar("error","sin_arg_cat_cuest_modulo_id");
-			die();
+			$this->redireccionaErrorAccion("sin_arg_cat_cuest_modulo_id");
 		}
 		if($this->tienePermiso("escritura")){
 			$bd = new BaseDatos();
@@ -167,8 +164,7 @@ class CuestionarioControl extends ControladorBase{
 			$cat_cuest_modulo->setArrCmpListaTablas($this->getCatCuestModuloId());
 			$arr_lista_tablas = $cat_cuest_modulo->getArrCmpListaTablas();
 			if(empty($arr_lista_tablas)){
-				redireccionar("error","valor_de_campo_vacio", array("tbl_nom"=>"cat_cuest_modulo", "cmp_nom"=>"lista_tablas"));
-				die();
+				$this->redireccionaErrorAccion("valor_de_campo_vacio", array("tbl_nom"=>"cat_cuest_modulo", "cmp_nom"=>"lista_tablas"));
 			}
 			$arr_cmps = array();
 			foreach ($arr_lista_tablas as $tabla){
@@ -194,8 +190,7 @@ class CuestionarioControl extends ControladorBase{
 			
 			$this->actualizaValidacionesJSON();
 		}else{
-			redireccionar('error','sin_permisos', array('tit_accion'=>'Guardar cuestionario'));
-			die();
+			$this->redireccionaErrorAccion("sin_permisos", array('tit_accion'=>'Guardar cuestionario'));
 		}
 		//$nom_arc_vista = strtoupper(cuest_cve($this->getCatCuestionarioId()))."Forma.php";
 		
@@ -212,26 +207,20 @@ class CuestionarioControl extends ControladorBase{
 	public function nuevo(){
 		$cat_usuario_id = (isset($_REQUEST['cat_usuario_id']))? intval($_REQUEST['cat_usuario_id']) : 0;
 		if(!$this->tienePermiso("nuevo_cuest") || !$this->tienePermiso("escritura")){
-			redireccionar('error','sin_permisos', array('tit_accion'=>'Guardar cuestionario'));
-			die();
+			$this->redireccionaErrorAccion("sin_permisos", array('tit_accion'=>'Guardar cuestionario'));
 		}
 		if($this->getCatCuestionarioId()==""){
-			redireccionar("error","sin_arg_cat_cuestionario_id");
-			die();
+			$this->redireccionaErrorAccion("sin_arg_cat_cuestionario_id");
 		}
 		if(!$cat_usuario_id){
-			$tit_error = "Cuestionario sin usuario asignado";
-			$txt_error = "No se pudo crear el cuestionario debido a que no se asignó el usuario responsable para su captura";
-			redireccionar("error","inicio", array("tit_error"=>$tit_error, "txt_error"=>$txt_error));
-			die();
+			$this->redireccionaError("Cuestionario sin usuario asignado", "No se pudo crear el cuestionario debido a que no se asignó el usuario responsable para su captura", false);
 		}
 		
 		$cat_cuest_modulo = new CatCuestModulo($this->getCatCuestionarioId());
 		$cat_cuest_modulo->setArrCmpListaTablas();
 		$arr_lista_tablas = $cat_cuest_modulo->getArrCmpListaTablas();
 		if(empty($arr_lista_tablas)){
-			redireccionar("error","valor_de_campo_vacio", array("tbl_nom"=>"cat_cuest_modulo", "cmp_nom"=>"lista_tablas"));
-			die();
+			$this->redireccionaErrorAccion("valor_de_campo_vacio", array("tbl_nom"=>"cat_cuest_modulo", "cmp_nom"=>"lista_tablas"));
 		}
 		
 		//Se guarda el registro actualizando los valores y tablas indicadas en el arreglo $arr_cmps
@@ -333,8 +322,7 @@ class CuestionarioControl extends ControladorBase{
 			$log->setRegLog("cuetionario_id", $cuetionario_id, "borrar", "Aviso", "Se borró cuestionario");
 			redireccionar('cuestionario','vista',array('cuestionario_id'=>$cuetionario_id));
 		}else{
-			redireccionar('error','sin_permisos', array('tit_accion'=>'Borrar cuestionario'));
-			die();
+			$this->redireccionaErrorAccion("sin_permisos",array('tit_accion'=>'Borrar cuestionario'));
 		}
 	}
 	/**
@@ -435,8 +423,7 @@ class CuestionarioControl extends ControladorBase{
 	 */
 	private function setForma(){
 		if($this->getCatCuestionarioId()==""){
-			redireccionar("error","sin_arg_cat_cuestionario_id");
-			die();
+			$this->redireccionaErrorAccion("sin_arg_cat_cuestionario_id");
 		}
 		
 		$cat_cuest_modulo = new CatCuestModulo($this->getCatCuestionarioId());
@@ -501,18 +488,13 @@ class CuestionarioControl extends ControladorBase{
 		$this->setForma();	//Para que se genere el campo arr_cmps_frm y el objeto validaciones_JSON
 		
 		if($this->getCatCuestionarioId()==""){
-			redireccionar("error","sin_arg_cat_cuestionario_id");
-			die();
+			$this->redireccionaErrorAccion("sin_arg_cat_cuestionario_id");
 		}elseif($this->getCatCuestModuloId()==""){
-			redireccionar("error","sin_arg_cat_cuest_modulo_id");
-			die();
+			$this->redireccionaErrorAccion("sin_arg_cat_cuest_modulo_id");
 		}
 		$arr_cmps_frm = $this->getArrCmpsForm();
 		if(empty($arr_cmps_frm)){
-			$tit_error = "Arreglo arr_cmps_frm vacío";
-			$txt_error = "Surgió un problema al tratar de obtener el contenido del arreglo con la variable nombre arr_cmps_frm. Favor de contactar al administrador del sistema.";
-			redireccionar("error","inicio", array("tit_error"=>$tit_error, "txt_error"=>$txt_error));
-			die();
+			$this->redireccionaError("Arreglo <em>arr_cmps_frm</em> vacío", "Surgió un problema al tratar de obtener el contenido del arreglo con la variable nombre arr_cmps_frm.");
 		}
 		
 		

@@ -10,6 +10,8 @@ class CuestCmpDef extends ModeloBase{
 	private $cat_cuestionario_id;
 	public function __construct($cat_cuestionario_id){
 		parent::__construct();
+		$this->tbl_nom = "cues_cmp_def";
+		$this->cmp_id_nom = $this->tbl_nom."_id";
 		$this->cat_cuestionario_id = $cat_cuestionario_id;
 	}
 	/**
@@ -18,14 +20,14 @@ class CuestCmpDef extends ModeloBase{
 	 */
 	public function setArrTblDef($and="") {
 		$and_ccid = " AND `cat_cuestionario_id` = '".$this->cat_cuestionario_id."' ".$and;
-		$this->setArrTbl("cues_cmp_def", $and_ccid, "cues_cmp_def_id");
+		$this->setArrTbl($and_ccid);
 	}
 	/**
 	 * Genera el arreglo de los registros de la tabla cues_cmp_def del cat_cuest_modulo_id indicado en el argumento
 	 * @param integer $cat_cuest_modulo_id
 	 */
 	public function setArrRegsXCatCuestModuloId($cat_cuest_modulo_id){
-		$and = " AND `cat_cuest_modulo_id` = '".$cat_cuest_modulo_id."'";
+		$and = " AND `".$this->cmp_id_nom."` = '".$cat_cuest_modulo_id."'";
 		$this->setArrTblDef($and);
 	}
 	

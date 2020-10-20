@@ -12,6 +12,7 @@ class ControladorBase{
 	private $arr_reg_usuario = array();
 	private $arr_permisos = array();
 	protected $arr_cmps_frm = array();	//Arreglo para los formularios
+	protected $arr_html_tag = array();
 	public function __constructINAES(){
 		$this->setArrRegUsuario();	//Se crea el arreglo con el detalle de datos del usuario
 		$permiso = new Permiso();
@@ -240,5 +241,42 @@ class ControladorBase{
 	public function getCampoValor($cmp_nom){
 		$arr_cmps_frm = $this->getArrCmpsForm();
 		return valorEnArreglo($arr_cmps_frm, $cmp_nom);
+	}
+	/**
+	 * Regresa el arreglo que contiene los tags html previamente definidos en el controlador actual asignado en el arreglo arr_html_tag
+	 * @param string $nom_html_tag
+	 * @return array
+	 */
+	private function getArrHTMLTag($nom_html_tag) {
+		$arr_html_tag = $this->arr_html_tag;
+		if(isset($arr_html_tag[$nom_html_tag])){
+			return $arr_html_tag[$nom_html_tag];
+		}else{
+			return array();
+		}
+	}
+	/**
+	 * Regresa el string que contiene el tags html previamente definidos en el controlador actual
+	 * @param string $nom_html_tag
+	 * @return string
+	 */
+	public function getHTMLTag($nom_html_tag) {
+		$arr_tag = array();
+		foreach($this->getArrHTMLTag($nom_html_tag) as $html_tag){
+			$arr_tag[] = $html_tag;
+		}
+		return tag_string($arr_tag);
+	}
+	public function redireccionaError($tit_error, $txt_error, $es_error_interno=true) {
+		$arr_url_arg = array(
+			'tit_error'=>$tit_error,
+			'txt_error'=>$txt_error
+		);
+		$accion = ($es_error_interno)? 'interno':'inicio';
+		$this->redireccionaErrorAccion($accion, $arr_url_arg);
+	}
+	public function redireccionaErrorAccion($accion, $arr_url_arg=array()) {
+		redireccionar('error', $accion, $arr_url_arg);
+		die();
 	}
 }
