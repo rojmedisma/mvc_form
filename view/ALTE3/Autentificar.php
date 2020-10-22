@@ -11,7 +11,7 @@
         }
 		</style>
 	</head>
-	<body class="hold-transition login-page">
+	<body class="hold-transition login-page accent-<?php echo COLOR_ACENTUAR; ?>">
 		<div class="login-box">
 			<div class="login-logo tlargo">
 				<a href="/<?php echo DIR_LOCAL; ?>/index.php"><b><?php echo TIT_LARGO; ?></b></a>

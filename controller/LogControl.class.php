@@ -12,7 +12,7 @@ class LogControl extends ControladorBase{
 	public function inicio(){
 		$this->setPaginaDistintivos();
 		$this->setArrTblContenido();
-		$this->setMostrarVista('Log.php');
+		$this->defineVista('Log.php');
 	}
 	/**
 	 * Modifica el arreglo que contiene todo el detalle de registros de log, obteniendo la información a partir de la vista <strong>v_log</strong>

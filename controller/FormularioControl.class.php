@@ -96,7 +96,7 @@ class FormularioControl extends ControladorBase{
 		$this->frm_al3->setUsarDivAgrupar($usar_div_agrupar);
 		$this->frm_al3->setVerNombreCampo($ver_nombre_campo);
 		
-		$this->setMostrarVista('Forma.php');
+		$this->defineVista('Forma.php');
 	}
 	public function guardar(){
 		$bd = new BaseDatos();

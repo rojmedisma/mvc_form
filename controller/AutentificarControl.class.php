@@ -40,7 +40,7 @@ class AutentificarControl extends ControladorBase{
 	 */
 	public function inicio(){
 		$this->setPaginaDistintivos();
-		$this->setMostrarVista('Autentificar.php');
+		$this->defineVista('Autentificar.php');
 	}
 	/**
 	 * Acción para validar si la información de usuario y contraseña es correcta
@@ -62,8 +62,8 @@ class AutentificarControl extends ControladorBase{
 			$log->setRegLog('usuario', $usuario, 'autentificar', 'Aviso', 'Inició sesión');
 		}else{
 			$this->es_info_incorrecta = true;
-			$this->setMostrarVista('Autentificar.php');
-			//$this->setMostrarVista('Autentificar.php');
+			$this->defineVista('Autentificar.php');
+			//$this->defineVista('Autentificar.php');
 		}
 	}
 	

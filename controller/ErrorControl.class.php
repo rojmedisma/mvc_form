@@ -11,7 +11,7 @@ class ErrorControl extends ControladorBase{
 	public function __construct(){
 		$this->setPaginaDistintivos();
 		$this->setAutentificar(false);
-		$this->setMostrarVista('Error.php');
+		$this->defineVista('Error.php');
 	}
 	/**
 	 * 

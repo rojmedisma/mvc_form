@@ -12,6 +12,6 @@ class Doc_codigoControl extends ControladorBase{
 	 * Acción que redirecciona a la pagina donde se encuentra la documentación del código
 	 */
 	public function inicio(){
-		$this->setMostrarVista('DocCodigo.php');
+		$this->defineVista('DocCodigo.php');
 	}
 }

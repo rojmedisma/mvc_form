@@ -1,6 +1,6 @@
 <?php
 /**
- * Extensión para todas las clases dentro de la carpeta <strong>controller</strong>
+ * Extensión para todas las clases dentro de la carpeta controller
  * @author Ismael Rojas
  */
 class ControladorBase{
@@ -13,10 +13,32 @@ class ControladorBase{
 	private $arr_permisos = array();
 	protected $arr_cmps_frm = array();	//Arreglo para los formularios
 	protected $arr_html_tag = array();
-	public function __constructINAES(){
+	private $con_menu_lateral_fijo = false;	//Si se va mostrar el menú lateral, esta bandera permite activar las librerías necesarias
+	protected $llamado_por_ajax = false;	//Si el controlador está siendo llamado usando ajax, se debe activar esta bandera
+	protected $usar_lib_toastr = false;	//Activa la librería Toastr para permitir mostrar sus alertas
+	public function __constructTablero(){
 		$this->setArrRegUsuario();	//Se crea el arreglo con el detalle de datos del usuario
-		$permiso = new Permiso();
-		$this->setArrPermiso("escritura", $permiso->tiene_permiso('mml_ae'));
+		//$permiso = new Permiso();
+		//$this->setArrPermiso("escritura", $permiso->tiene_permiso('mml_ae'));
+	}
+	/**
+	 * Opciones del menú lateral fijo izquierdo para el Tablero
+	 */
+	protected function setArrHTMLTagLiNavItemTablero(){
+		$arr_li_nav_item = array();
+		
+		$alte3_html = new ALTE3HTML();
+		$alte3_html->setHTMLLiNavItem(CONTROLADOR_DEFECTO, ACCION_DEFECTO, '<i class="nav-icon fas fa-home"></i> Inicio', 
+			($this->getControlador()==CONTROLADOR_DEFECTO && $this->getAccion() == ACCION_DEFECTO)? array('a_class'=>'nav-link active') : array()
+		);
+		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
+		$arr_li_nav_item[] = '<li class="nav-header">CUESTIONARIO</li>';
+		$alte3_html->setHTMLLiNavItem('vista', 'cuestionario', '<i class="nav-icon fas fa-th-list"></i> Conuslta', 
+			($this->getControlador()=='vista' && $this->getAccion() == 'cuestionario')? array('a_class'=>'nav-link active') : array()
+		);
+		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
+		
+		$this->arr_html_tag['li_nav_item_sb'] = $arr_li_nav_item;
 	}
 	
 	/**
@@ -89,10 +111,10 @@ class ControladorBase{
 		return $this->nombre_vista;
 	}
 	/**
-	 * Modifica el atributo con el nombre del archivo de la página a mostrar
-	 * @param string $nombre_vista
+	 * Asigna el nombre de la vista a mostrar al ejecutarse el controlador
+	 * @param string $nombre_vista	Nombre de la vista
 	 */
-	protected function setMostrarVista($nombre_vista){
+	protected function defineVista($nombre_vista){
 		$this->cargar_vista = ($nombre_vista!="")? true : false;
 		$this->nombre_vista = $nombre_vista;
 	}
@@ -278,5 +300,22 @@ class ControladorBase{
 	public function redireccionaErrorAccion($accion, $arr_url_arg=array()) {
 		redireccionar('error', $accion, $arr_url_arg);
 		die();
+	}
+	/**
+	 * Activa/Desactiva la variable usada para declarar las librerías cuando se usa el menú lateral fijo
+	 * @param boolean $bandera
+	 */
+	protected function setConMenuLateralFijo($bandera=true){
+		$this->con_menu_lateral_fijo = $bandera;
+	}
+	/**
+	 * Devuelve el valor de la variable usada para declarar las librerías cuando se usa el menú lateral fijo
+	 * @return boolean
+	 */
+	public function getConMenuLateralFijo() {
+		return $this->con_menu_lateral_fijo;
+	}
+	public function getUsarLibToastr() {
+		return $this->usar_lib_toastr;
 	}
 }

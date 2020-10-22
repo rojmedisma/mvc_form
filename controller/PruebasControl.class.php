@@ -9,6 +9,6 @@ class PruebasControl extends ControladorBase{
 		$cat_estado = new CatEstado();
 		$cat_estado->setArrTbl();
 		echo json_encode($cat_estado->getArrTbl());
-		$this->setMostrarVista("Pruebas.php");
+		$this->defineVista("Pruebas.php");
 	}
 }

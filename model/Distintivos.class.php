@@ -16,7 +16,6 @@ class Distintivos{
 								array("controlador"=>"desautentificar","accion"=>"inicio")
 						)
 				),
-				
 				"autentificar"=>array(
 						"inicio"=>array(
 								"titulo_pagina"=>TIT_LARGO,
@@ -25,68 +24,8 @@ class Distintivos{
 				),
 				"tablero"=>array(
 						"inicio"=>array(
-								"titulo_pagina"=>"Inicio",
+								"titulo_pagina"=>"Tablero",
 								"arr_pag_ant"=>array()
-						)
-				),
-				"cuestionario"=>array(
-						"vista"=>array(
-								"titulo_pagina"=>"Vista cuestionario",
-								"arr_pag_ant"=>array()
-						),
-						"forma"=>array(
-								"titulo_pagina"=>"Cuestionario",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"cuestionario","accion"=>"vista")
-								)
-						),
-						"resultado"=>array(
-								"titulo_pagina"=>"Cuestionario",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"cuestionario","accion"=>"vista")
-								)
-						),
-						"res_cmpte"=>array(
-								"titulo_pagina"=>"Cuestionario",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"cuestionario","accion"=>"vista")
-								)
-						),
-						"semaforo"=>array(
-								"titulo_pagina"=>"Cuestionario",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"cuestionario","accion"=>"vista")
-								)
-						)
-				),
-				
-				"cat_usuario"=>array(
-						"vista"=>array(
-								"titulo_pagina"=>"Catálogo de usuarios",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"cuestionario","accion"=>"vista")
-								)
-						),
-						"forma"=>array(
-								"titulo_pagina"=>"Formulario de usuario",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"cat_usuario","accion"=>"vista"),
-										array("controlador"=>"cuestionario","accion"=>"vista")
-								)
-						)
-				),
-				"cat_grupo"=>array(
-						"inicio"=>array(
-								"titulo_pagina"=>"Catálogo de grupos",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"tablero","accion"=>"inicio")
-								)
-						),
-						"abrir"=>array(
-								"titulo_pagina"=>"Formulario de grupo",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"cat_grupo","accion"=>"inicio")
-								)
 						)
 				),
 				"log"=>array(
@@ -97,15 +36,13 @@ class Distintivos{
 								)
 						)
 				),
-				
-				"doc_codigo"=>array(
-						"inicio"=>array(
-								"titulo_pagina"=>"Documentación de código fuente",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"tablero","accion"=>"inicio")
-								)
+				"vista"=>array(
+						"cuestionario"=>array(
+								"titulo_pagina"=>"Consulta",
+								"arr_pag_ant"=>array()
 						)
 				),
+				
 		);
 	}
 	/**

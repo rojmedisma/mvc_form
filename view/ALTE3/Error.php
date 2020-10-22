@@ -3,7 +3,7 @@
 	<head>
 		<?php include_once 'modulos/EnHead.php'; ?>
 	</head>
-	<body class="hold-transition layout-top-nav">
+	<body class="hold-transition layout-top-nav  accent-<?php echo COLOR_ACENTUAR; ?>">
 		<div class="wrapper">
 			<!-- Navbar -->
 			<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">

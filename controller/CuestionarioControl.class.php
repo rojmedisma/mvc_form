@@ -83,7 +83,7 @@ class CuestionarioControl extends ControladorBase{
 			
 			
 			$nom_arc_vista = strtoupper(cuest_cve($this->getCatCuestionarioId()))."Vista.php";
-			$this->setMostrarVista($nom_arc_vista);
+			$this->defineVista($nom_arc_vista);
 		}else{
 			$this->redireccionaErrorAccion("sin_arg_cat_cuestionario_id");
 		}
@@ -145,7 +145,7 @@ class CuestionarioControl extends ControladorBase{
 		}
 		
 		$nom_arc_vista = strtoupper(cuest_cve($this->getCatCuestionarioId()))."Forma.php";
-		$this->setMostrarVista($nom_arc_vista);
+		$this->defineVista($nom_arc_vista);
 	}
 	
 	/**
@@ -254,7 +254,7 @@ class CuestionarioControl extends ControladorBase{
 		$this->arr_res_indicador = $arr_res_reg;
 		
 		$nom_arc_vista = strtoupper(cuest_cve($this->getCatCuestionarioId()))."Forma.php";
-		$this->setMostrarVista($nom_arc_vista);
+		$this->defineVista($nom_arc_vista);
 	}
 	/**
 	 * Acción para mostrar la pestaña o tab de Semáforo
@@ -273,7 +273,7 @@ class CuestionarioControl extends ControladorBase{
 		
 		//echo "<br>".json_encode($this->arr_res_semaforo)."<br>";
 		$nom_arc_vista = strtoupper(cuest_cve($this->getCatCuestionarioId()))."Forma.php";
-		$this->setMostrarVista($nom_arc_vista);
+		$this->defineVista($nom_arc_vista);
 	}
 	/**
 	 * Acción para exportar todos los registros de cuestionario

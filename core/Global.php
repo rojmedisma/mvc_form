@@ -9,7 +9,7 @@ $es_conexion_hosting = false;
 
 if($es_conexion_hosting){
 	$dir_confg = $_SERVER['DOCUMENT_ROOT'].'/config/';
-	$arc_config = 'mvc_forma.ini';
+	$arc_config = 'mvc_forma_hosting.ini';
 }else{
 	$dir_confg = str_replace('htdocs', '', $_SERVER['DOCUMENT_ROOT']) . 'config/';
 	$arc_config = 'mvc_forma.ini';

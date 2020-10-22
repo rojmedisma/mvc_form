@@ -7,7 +7,7 @@
 	<head>
 		<?php include_once 'modulos/EnHead.php'; ?>
 	</head>
-	<body class="hold-transition layout-top-nav text-sm">
+	<body class="hold-transition layout-top-nav text-sm  accent-<?php echo COLOR_ACENTUAR; ?>">
 		<form action="" id="frm_cero" name="frm_cero"  method="post">
 			
 		</form>

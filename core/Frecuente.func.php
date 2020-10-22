@@ -38,6 +38,8 @@ function define_controlador($controlador=CONTROLADOR_DEFECTO,$accion=ACCION_DEFE
  * @param string $url_uri	Parametro URL que guarda la dirección a donde dirigirse despues de autentificarse
  */
 function redireccionar($controlador=CONTROLADOR_DEFECTO,$accion=ACCION_DEFECTO, $arr_url_arg=array(), $url_uri=""){
+	//$_SESSION["S_REDIREC"][] = $controlador."_".$accion;
+	
 	if($_REQUEST['controlador'] == $controlador && $_REQUEST['accion'] == $accion){
 		
 		//echo "<br>".$_REQUEST['controlador'];
@@ -63,6 +65,7 @@ function redireccionar($controlador=CONTROLADOR_DEFECTO,$accion=ACCION_DEFECTO, 
 	    $arr_tag[] = '  <ul>';
 	    $arr_tag[] = '      <li>Argumento controlador es: <em>'.$controlador.'</em> y argumento accion es: <em>'.$accion.'</em>.</li>';
 	    $arr_tag[] = '      '.$tag_li_err;
+		//$arr_tag[] = '      <br>'. json_encode($_SESSION["S_REDIREC"]);
 	    $arr_tag[] = '  </ul>';
 	    $arr_tag[] = '  <p>Favor de informar al administrador del sistema. Gracias.</p>';
 	    $arr_tag[] = ' </body>';

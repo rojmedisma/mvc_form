@@ -53,3 +53,14 @@ En esta versión se toman los ajustes implementadios en el sistema taller_csp. E
 - Archivo vista **EnNavbarTopNav.php**. Se eliminó.
 - Archivo vista **FrmCeroMML.php**. Se eliminó.
 - Archivo vista **ScriptMainSB.php**. Se eliminó.
+
+## Versión 1.1.1.5
+
+> Cambios en la plataforma MVC
+
+- Archivo **index.php**. Se quitó el uso de la función redireccionar para errores de ruta inválida, en su lugar, se puso el error directo. 
+- **Controladores**. Por cuestiones de claridad, se cambió el nombre de la función **setMostrarVista** por **defineVista**.
+- **ControladorBase**. Se agregaron las variables **con_menu_lateral_fijo**, **llamado_por_ajax** y **usar_lib_toastr**. Variables que faltó agregar del proyecto **taller_csp** 
+- Archivo vista **EnHead.php**. Se importó del proyecto **taller_csp**, debido a que esa era la última versión y faltó agregarlo en la integración en el proyecto **mvc_form**
+- Archivo vista **Scripts.php**. Se importó del proyecto **taller_csp**, debido a que esa era la última versión y faltó agregarlo en la integración en el proyecto **mvc_form**
+- Definición de variable global **COLOR_ACENTUAR** en archivo **config**

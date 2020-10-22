@@ -12,8 +12,11 @@ $clase_controlador = ucwords($controlador).'Control';
 $arc_controlador = $clase_controlador.'.class.php';
 $ruta_controlador ='controller/'.$arc_controlador;
 
+
+
 if(!is_file($ruta_controlador)){
-    redireccionar('error', 'sin_ruta', array("ruta"=>$ruta_controlador));
+	echo "Ruta de controlador <em>".$ruta_controlador."</em> no existe.";
+	die();
 }
 require_once $ruta_controlador;
 if(class_exists($clase_controlador)){
@@ -44,7 +47,8 @@ if(method_exists($controlador_obj, $accion)){
 	if($controlador_obj->getCargarVista()){
 	    $ruta_vista = 'view/'.CARPETA_VIEW.'/'.$controlador_obj->getNombreVista();
 	    if(!is_file($ruta_vista)){
-	        redireccionar('error', 'sin_ruta', array("ruta"=>$ruta_vista));
+			echo "Ruta de vista <em>".$ruta_vista."</em> no existe.";
+			die();
 	    }
 	    require_once $ruta_vista;
 	}
