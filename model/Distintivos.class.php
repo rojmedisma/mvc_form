@@ -10,39 +10,65 @@ class Distintivos{
 	private $arr_pagina_anterior = array();
 	public function __construct() {
 		$this->arr_distintivos = array(
-				"error"=>array(
-						"__construct"=>array(
-								"titulo_pagina"=>"Error",
-								array("controlador"=>"desautentificar","accion"=>"inicio")
-						)
+			"error"=>array(
+				"__construct"=>array(
+					"titulo_pagina"=>"Error",
+					array("controlador"=>"desautentificar","accion"=>"inicio")
+				)
+			),
+			"autentificar"=>array(
+				"inicio"=>array(
+					"titulo_pagina"=>TIT_LARGO,
+					"arr_pag_ant"=>array()
+				)
+			),
+			"log"=>array(
+				"inicio"=>array(
+					"titulo_pagina"=>"Vista registros de log",
+					"arr_pag_ant"=>array(
+						array("controlador"=>"tablero","accion"=>"inicio")
+					)
+				)
+			),
+			"tablero"=>array(
+				"inicio"=>array(
+					"titulo_pagina"=>"Inicio",
+					"arr_pag_ant"=>array()
+				)
+			),
+			"cuestvista"=>array(
+				"inicio"=>array(
+					"titulo_pagina"=>"Consulta",
+					"arr_pag_ant"=>array()
+				)
+			),
+			"cuestforma"=>array(
+				"inicio"=>array(
+					"titulo_pagina"=>"Cuestionario",
+					"arr_pag_ant"=>array()
+				)
+			),
+			"tablaconsulta"=>array(
+				"cat_usuario"=>array(
+					"titulo_pagina"=>"Consulta",
+					"arr_pag_ant"=>array()
 				),
-				"autentificar"=>array(
-						"inicio"=>array(
-								"titulo_pagina"=>TIT_LARGO,
-								"arr_pag_ant"=>array()
-						)
+				"cat_grupo"=>array(
+					"titulo_pagina"=>"Consulta",
+					"arr_pag_ant"=>array()
 				),
-				"tablero"=>array(
-						"inicio"=>array(
-								"titulo_pagina"=>"Tablero",
-								"arr_pag_ant"=>array()
-						)
+			),
+			"catforma"=>array(
+				"cat_usuario"=>array(
+					"titulo_pagina"=>"Catálogo",
+					"arr_pag_ant"=>array()
 				),
-				"log"=>array(
-						"inicio"=>array(
-								"titulo_pagina"=>"Vista registros de log",
-								"arr_pag_ant"=>array(
-										array("controlador"=>"tablero","accion"=>"inicio")
-								)
-						)
-				),
-				"vista"=>array(
-						"cuestionario"=>array(
-								"titulo_pagina"=>"Consulta",
-								"arr_pag_ant"=>array()
-						)
-				),
-				
+				"cat_grupo"=>array(
+					"titulo_pagina"=>"Catálogo",
+					"arr_pag_ant"=>array()
+				)
+			),
+			
 		);
 	}
 	/**

@@ -46,6 +46,7 @@ class Autentificar extends Ayuda{
 			return false;
 		}else{
 			$qry_cu = "SELECT COUNT(*) AS 'total' FROM `".$this->bd->getBD()."`.`cat_usuario` WHERE `usuario` LIKE '".$this->getUsuario()."'".$this->and_usuario;
+			
 			$total = $this->bd->get1erElemQry('total', $qry_cu);
 			if($total){
 				return true;
@@ -93,6 +94,7 @@ class Autentificar extends Ayuda{
 	 */
 	public function getEsValido(){
 		$es_valido = false;
+		
 		if($this->getValUsuario() && $this->getValClave()){
 			$es_valido = true;
 		}

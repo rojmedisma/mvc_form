@@ -92,16 +92,17 @@ function concatena_nombre($nombre, $ap_paterno, $ap_materno){
 	return trim($ap_paterno." ".trim($ap_materno." ".$nombre));
 }
 /**
- * Devuelve el valor perteneciente al atributo <strong>indice</strong> si se encuentra contenido en el arreglo pertenenciente al atributo <strong>arreglo</strong>
- * @param array $arreglo
- * @param string $indice
+ * Devuelve el valor perteneciente al atributo indice si se encuentra contenido en el arreglo pertenenciente al atributo arreglo
+ * @param array $arreglo	Arreglo donde se busca el valor
+ * @param string $indice	Llave a buscar dentro del arreglo
+ * @param boolean $nulo_si_vacio	Bandera para indicar el valor de retorno cuando el dato no se encuentra (nulo = true, vacío = false)
  * @return string
  */
-function valorEnArreglo($arreglo, $indice){
+function valorEnArreglo($arreglo, $indice, $nulo_si_vacio=false){
 	if(isset($arreglo[$indice])){
 		return $arreglo[$indice];
 	}else{
-		return '';
+		return ($nulo_si_vacio)? null : '';
 	}
 }
 /**

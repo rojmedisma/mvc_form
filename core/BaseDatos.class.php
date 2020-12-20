@@ -143,9 +143,9 @@ class BaseDatos extends Ayuda{
 	 * @param mixed $cmp_id_val	Valor del campo Id Llave
 	 * @return array
 	 */
-	public function getArrRegDeTabla($tabla, $cmp_id_nom, $cmp_id_val){
-		$and = " AND `".$cmp_id_nom."` = '".$cmp_id_val."'";
-		$arr_tbl = $this->getArrDeTabla($tabla, $and);
+	public function getArrRegDeTabla($tabla, $cmp_id_nom, $cmp_id_val, $and=""){
+		$and_c = " AND `".$cmp_id_nom."` = '".$cmp_id_val."' ".$and;
+		$arr_tbl = $this->getArrDeTabla($tabla, $and_c);
 		$arr_reg = (count($arr_tbl))? $arr_tbl[0] : NULL;
 		return $arr_reg;
 	}
@@ -167,10 +167,16 @@ class BaseDatos extends Ayuda{
 		}
 		return $arr_dis;
 	}
+	/**
+	 * Regresa un arreglo con los registros obtenidos a partir del query indicado en el argumento
+	 * @param string $query	Query del que se quiere arrojar el resultado
+	 * @param string $cmp_id	Campo llave para generar un arreglo con indice
+	 * @return array
+	 */
 	public function getArrDeQuery($query, $cmp_id=""){
 		$rs = $this->ejecutaQry($query);
 		$arr_qry = array();
-		while($row = $rs->fetch_array()){
+		while($row = $rs->fetch_array(MYSQLI_ASSOC)){
 			if($cmp_id!=""){
 				$arr_qry[$row[$cmp_id]] = $row;
 			}else{

@@ -2,6 +2,7 @@
 class CatCuestModulo extends ModeloBase{
 	private $arr_lista_tablas;
 	private $cat_cuestionario_id;
+	private $cat_cuest_modulo_id;
 	public function __construct($cat_cuestionario_id){
 		parent::__construct();
 		$this->tbl_nom = "cat_cuest_modulo";
@@ -20,8 +21,9 @@ class CatCuestModulo extends ModeloBase{
 	 * Genera el arreglo con el contenido del registro de la tabla cat_cuest_modulo a partir del id cat_cuest_modulo_id
 	 * @param integer $cat_cuest_modulo_id
 	 */
-	public function setArrRegCat($cat_cuest_modulo_id){
-		$this->setArrReg($cat_cuest_modulo_id);
+	public function setArrRegCat($cat_cuest_modulo_id, $and=""){
+		$and_c = " AND `cat_cuestionario_id` = '".$this->getCatCuestionarioId()."' ".$and;
+		$this->setArrReg($cat_cuest_modulo_id, $and_c);
 	}
 	/**
 	 * Genera arreglo con la lista de tablas del campo lista_tablas
@@ -57,6 +59,13 @@ class CatCuestModulo extends ModeloBase{
 	 */
 	public function getArrCmpListaTablas(){
 		return $this->arr_lista_tablas;
+	}
+	public function setCatCuestModuloIdIni() {
+		$qry = "SELECT `".$this->cmp_id_nom."` FROM `".$this->bd->getBD()."`.`".$this->tbl_nom."` WHERE `cat_cuestionario_id` = '".$this->cat_cuestionario_id."' ORDER BY `orden` ASC ";
+		$this->cat_cuest_modulo_id = $this->bd->get1erElemQry($this->cmp_id_nom, $qry);
+	}
+	public function getCatCuestModuloId() {
+		return $this->cat_cuest_modulo_id;
 	}
 	/**
 	 * Devuelve el valor de la variable <strong>cat_cuestionario_id</strong>

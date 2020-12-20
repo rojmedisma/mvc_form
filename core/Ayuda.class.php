@@ -25,7 +25,7 @@ class Ayuda{
 		$this->setArrError($tit_error, $txt_error);
 	}
 	/**
-	 * Modifica el arreglo del atributo <strong>arr_error</strong> con la información necesaria para señalar el error producido
+	 * Modifica el arreglo del atributo arr_error con la información necesaria para señalar el error producido
 	 * @param string $tit_error
 	 * @param string $txt_error
 	 */
@@ -43,6 +43,18 @@ class Ayuda{
 	 */
 	protected function getArrError(){
 		return $this->arr_error;
+	}
+	/**
+	 * Regresa el primer arreglo de error generado con la intención de ser impreso en pantalla mediante el rediereccionamiento al controlador de Error.
+	 * @return array
+	 */
+	public function getArr1erError() {
+		$arr_error = $this->arr_error;
+		if(count($arr_error)){
+			return $arr_error[0];
+		}else{
+			return array('tit_error'=>'Error al llamado a función getArr1erError', 'txt_error'=>'El error no pudo ser desplegado al generarse un error en la función getArr1erError. <br>Verificar primera haber insertado un return true al final de la función que llama a setError.');
+		}
 	}
 	/**
 	 * Devuelve un cuadro de alerta en formato HTML para informar del error producido

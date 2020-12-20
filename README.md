@@ -64,3 +64,9 @@ En esta versión se toman los ajustes implementadios en el sistema taller_csp. E
 - Archivo vista **EnHead.php**. Se importó del proyecto **taller_csp**, debido a que esa era la última versión y faltó agregarlo en la integración en el proyecto **mvc_form**
 - Archivo vista **Scripts.php**. Se importó del proyecto **taller_csp**, debido a que esa era la última versión y faltó agregarlo en la integración en el proyecto **mvc_form**
 - Definición de variable global **COLOR_ACENTUAR** en archivo **config**
+
+## Versión 1.1.1.6
+
+> Cambios en la plataforma MVC
+
+- Homologación de archivos con los del proyecto **siap_igei**

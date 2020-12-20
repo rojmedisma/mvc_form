@@ -11,35 +11,15 @@ class ControladorBase{
 	private $arr_pag_anterior = array();
 	private $arr_reg_usuario = array();
 	private $arr_permisos = array();
+	private $arr_datos_vista = array();	//Arreglo para asignar variables con valores que se van a mostrar en la vista
+	private $usar_lib_toastr = false;	//Activa la librería Toastr para permitir mostrar sus alertas
+	private $usar_lib_vista = false;	//Activa las librerias necesarias para desplegar las vistas con formato DataTable
+	private $usar_lib_forma = false;	//Activa las librerias necesarias para la funcionalidad de los formularios
 	protected $arr_cmps_frm = array();	//Arreglo para los formularios
+	protected $llamado_por_ajax = false;	//Si el controlador está siendo llamado usando ajax, se debe activar esta bandera
 	protected $arr_html_tag = array();
 	private $con_menu_lateral_fijo = false;	//Si se va mostrar el menú lateral, esta bandera permite activar las librerías necesarias
-	protected $llamado_por_ajax = false;	//Si el controlador está siendo llamado usando ajax, se debe activar esta bandera
-	protected $usar_lib_toastr = false;	//Activa la librería Toastr para permitir mostrar sus alertas
-	public function __constructTablero(){
-		$this->setArrRegUsuario();	//Se crea el arreglo con el detalle de datos del usuario
-		//$permiso = new Permiso();
-		//$this->setArrPermiso("escritura", $permiso->tiene_permiso('mml_ae'));
-	}
-	/**
-	 * Opciones del menú lateral fijo izquierdo para el Tablero
-	 */
-	protected function setArrHTMLTagLiNavItemTablero(){
-		$arr_li_nav_item = array();
-		
-		$alte3_html = new ALTE3HTML();
-		$alte3_html->setHTMLLiNavItem(CONTROLADOR_DEFECTO, ACCION_DEFECTO, '<i class="nav-icon fas fa-home"></i> Inicio', 
-			($this->getControlador()==CONTROLADOR_DEFECTO && $this->getAccion() == ACCION_DEFECTO)? array('a_class'=>'nav-link active') : array()
-		);
-		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
-		$arr_li_nav_item[] = '<li class="nav-header">CUESTIONARIO</li>';
-		$alte3_html->setHTMLLiNavItem('vista', 'cuestionario', '<i class="nav-icon fas fa-th-list"></i> Conuslta', 
-			($this->getControlador()=='vista' && $this->getAccion() == 'cuestionario')? array('a_class'=>'nav-link active') : array()
-		);
-		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
-		
-		$this->arr_html_tag['li_nav_item_sb'] = $arr_li_nav_item;
-	}
+	protected $es_nuevo = true;	//Es documento/formulario nuevo
 	
 	/**
 	 * Modifica el título principal de la página actual (Función obsoleta, ahora se usa setPaginaDistintivos)
@@ -221,11 +201,11 @@ class ControladorBase{
 	 * @param string $nom_permiso	Nombre específico del permiso en la forma actual
 	 * @param boolean $agregar	Agregar permiso (true,false)
 	 */
-	protected function setArrPermiso($nom_permiso, $agregar=true) {
-		$arr_permisos = $this->arr_permisos;
-		if(!isset($arr_permisos[$nom_permiso]) && $agregar){
-			array_push($arr_permisos, $nom_permiso);
-		}
+	/**
+	 * Se llena el arreglo de permisos (Previamente definidios) al arreglo arr_permisos para poder ser manejados
+	 * @param type $arr_permisos
+	 */
+	protected function setArrPermisos($arr_permisos) {
 		$this->arr_permisos = $arr_permisos;
 	}
 	/**
@@ -256,6 +236,13 @@ class ControladorBase{
 		return $this->arr_cmps_frm;
 	}
 	/**
+	 * Devuelve el arreglo que contiene todas las variables creadas para mostrarse en la vista
+	 * @return array
+	 */
+	private function getArrDatosVista() {
+		return $this->arr_datos_vista;
+	}
+	/**
 	 * Del arreglo de campos de la forma actual, devuelve el valor del campo indicado en el argumento
 	 * @param string $cmp_nom	Nombre del campo
 	 * @return string
@@ -264,6 +251,42 @@ class ControladorBase{
 		$arr_cmps_frm = $this->getArrCmpsForm();
 		return valorEnArreglo($arr_cmps_frm, $cmp_nom);
 	}
+	/**
+	 * Del arreglo de variables con valores para la vista, devuelve el valor del de la variable indicada en el arreglo
+	 * @param string $cmp_nom
+	 * @return variant
+	 */
+	public function getDatoVistaValor($var_nom) {
+		$arr_datos_vista = $this->getArrDatosVista();
+		return valorEnArreglo($arr_datos_vista, $var_nom);
+	}
+	/**
+	 * Asigna un valor a una variable, ambas definidas en los argumentos, para asignarse a un arreglo cuyos valores van a poder ser consultados en los archivos vista
+	 * @param type $var_nom
+	 * @param type $var_val
+	 */
+	protected function setArrDatoVistaValor($var_nom, $var_val) {
+		$arr_datos_vista = $this->getArrDatosVista();
+		$arr_datos_vista[$var_nom] = $var_val;
+		//array_push($arr_datos_vista, array($var_nom=>$var_val));
+		$this->arr_datos_vista = $arr_datos_vista;
+		//echo json_encode($this->arr_datos_vista);
+	}
+	
+	
+	/**
+	 * Regresa el string que contiene el tag html previamente definidos en el controlador actual
+	 * @param string $nom_html_tag
+	 * @return string
+	 */
+	public function getHTMLTag($nom_html_tag) {
+		$arr_tag = array();
+		foreach($this->getArrHTMLTag($nom_html_tag) as $html_tag){
+			$arr_tag[] = $html_tag;
+		}
+		return tag_string($arr_tag);
+	}
+	
 	/**
 	 * Regresa el arreglo que contiene los tags html previamente definidos en el controlador actual asignado en el arreglo arr_html_tag
 	 * @param string $nom_html_tag
@@ -277,26 +300,36 @@ class ControladorBase{
 			return array();
 		}
 	}
+	
 	/**
-	 * Regresa el string que contiene el tags html previamente definidos en el controlador actual
-	 * @param string $nom_html_tag
-	 * @return string
+	 * Función redireccionar para desplegar pantalla de error
+	 * @param string $tit_error	Título del error
+	 * @param string $txt_error	Texto o descripción del error
+	 * @param boolean $es_error_interno	Bandera para identificar si el error es interno o no, y así adjuntar el texto pertinente
 	 */
-	public function getHTMLTag($nom_html_tag) {
-		$arr_tag = array();
-		foreach($this->getArrHTMLTag($nom_html_tag) as $html_tag){
-			$arr_tag[] = $html_tag;
-		}
-		return tag_string($arr_tag);
-	}
 	public function redireccionaError($tit_error, $txt_error, $es_error_interno=true) {
+		$txt_origen = '<br><br>Controlador: <strong>'.$this->getControlador().'</strong><br>';
+		$txt_origen .= 'Acción: <strong>'.$this->getAccion().'</strong><br>';
 		$arr_url_arg = array(
 			'tit_error'=>$tit_error,
-			'txt_error'=>$txt_error
+			'txt_error'=>$txt_error.$txt_origen,
 		);
+		$this->redireccionaErrorDeArr($arr_url_arg, $es_error_interno);
+	}
+	/**
+	 * Función redireccionar para desplegar pantalla de error. Misma funcionalidad a redireccionaError, con la diferencia a que recibe un arreglo con los textos de error
+	 * @param array $arr_url_arg	Arreglo con los textos a desplegar del error
+	 * @param boolean $es_error_interno	Bandera para identificar si el error es interno o no, y así adjuntar el texto pertinente
+	 */
+	public function redireccionaErrorDeArr($arr_url_arg, $es_error_interno=true) {
 		$accion = ($es_error_interno)? 'interno':'inicio';
 		$this->redireccionaErrorAccion($accion, $arr_url_arg);
 	}
+	/**
+	 * Función redireccionar para el llamado un error predeterminado o previamente definido en el controlador Error
+	 * @param string $accion
+	 * @param array $arr_url_arg
+	 */
 	public function redireccionaErrorAccion($accion, $arr_url_arg=array()) {
 		redireccionar('error', $accion, $arr_url_arg);
 		die();
@@ -317,5 +350,68 @@ class ControladorBase{
 	}
 	public function getUsarLibToastr() {
 		return $this->usar_lib_toastr;
+	}
+	/**
+	 * Función para hacer switch con la bandera privada usar_lib_vista
+	 * @param boolean $bandera
+	 */
+	protected function setUsarLibVista($bandera=true) {
+		$this->usar_lib_vista = $bandera;
+	}
+	/**
+	 * Devuelve el valor de la bandera usar_lib_vista
+	 * @return boolean
+	 */
+	public function getUsarLibVista() {
+		return $this->usar_lib_vista;
+	}
+	/**
+	 * Función para hacer switch con la bandera privada usar_lib_forma
+	 * @param boolean $bandera
+	 */
+	protected function setUsarLibForma($bandera=true) {
+		$this->usar_lib_forma = $bandera;
+	}
+	/**
+	 * Devuelve el valor de la bandera usar_lib_forma
+	 * @return boolean
+	 */
+	public function getUsarLibForma() {
+		return $this->usar_lib_forma;
+	}
+	/**
+	 * Regresa una lista de campos ocultos con la información del controlador actualmente desplegado, cuya información se puede obtener a partir de varibles declaradas en ControladorBase.
+	 * Sirve para poder ser enviada mediante un formulario a otro controlador y tener esos datos
+	 * Campos:
+	 *	controlador_fuente: Nombre del controlador actual
+	 *	accion_fuente:	Nombre de la acción actual
+	 */
+	public function getHTMLCamposOcultosBase(){
+		$arr_tag = array();
+		$arr_tag[] = '<input type="hidden" name="controlador_fuente" value="'.$this->getControlador().'">';
+		$arr_tag[] = '<input type="hidden" name="accion_fuente" value="'.$this->getAccion().'">';
+		return tag_string($arr_tag);
+	}
+	/**
+	 * Asigna en una variable de sesión un mensaje que puede ser usado o mostrado en otra vista llamada por otro controlador distinto al actual
+	 * @param string $mensaje
+	 * @param string $nom_var_ses
+	 */
+	public function setSesionMsjTmp($mensaje, $nom_var_ses="SES_MSG_EXITO") {
+		$_SESSION[$nom_var_ses] = $mensaje;
+	}
+	/**
+	 * Obtiene el mensaje almacenado en la variable de sesión usada para guardar mensajes
+	 * @param string $nom_var_ses
+	 * @return string
+	 */
+	public function getSesionMsjTmp($nom_var_ses="SES_MSG_EXITO"){
+		if(isset($_SESSION[$nom_var_ses])){
+			$val_var_ses = $_SESSION[$nom_var_ses];
+			unset($_SESSION[$nom_var_ses]);
+			return $val_var_ses;
+		}else{
+			return "";
+		}
 	}
 }

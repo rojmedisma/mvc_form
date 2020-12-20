@@ -25,7 +25,14 @@
 				<!-- Main content -->
 				<div class="content">
 					<div class="container-fluid">
-						Pruebas
+						<div>
+							<button class="btn btn-default">Presionar</button>
+							<a href="#" class="btn btn-default">Presionar</a>
+						</div>
+						<div>
+							<button class="btn btn-primary">Presionar</button>
+							<a href="#" class="btn btn-primary">Presionar</a>
+						</div>
 					</div><!-- /.container-fluid -->
 				</div><!-- /.content -->
 			</div>

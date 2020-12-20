@@ -25,7 +25,7 @@ class Permiso{
      * Devuelve el arreglo de los permisos del usuario actual
      * @return array
      */
-    private function getArrPermisos(){
+    public function getArrPermisos(){
         return $this->arr_permisos;
     }
     /**
@@ -41,4 +41,27 @@ class Permiso{
             return false;
         }
     }
+	/**
+	 * Para cada permiso de cuestionario (Identificados por un prefijo definido), agrega un permiso alias para una identificación más sencilla
+	 * @param int $cat_cuestionario_id
+	 */
+	public function setArrPermisosCuestXAlias($cat_cuestionario_id) {
+		$arr_alias = array(
+			"ae"=>"escritura",
+			"al"=>"lectura",
+			"nuevo"=>"nuevo_cuest",
+			"aprob"=>"aprobar",
+			"nac"=>"ver_todo",
+			"asig"=>"ver_asignados",
+		);
+		$cuet_cve = cuest_cve($cat_cuestionario_id);
+		$arr_permisos = $this->arr_permisos;
+		foreach($arr_permisos as $nom_permiso){
+			if(substr($nom_permiso,0,3) == $cuet_cve){
+				$p_sin_prefijo = substr($nom_permiso,4);
+				$permiso_alias = (isset($arr_alias[$p_sin_prefijo]))? $arr_alias[$p_sin_prefijo] : $p_sin_prefijo;
+				array_push($this->arr_permisos, $permiso_alias);
+			}
+		}
+	}
 }
