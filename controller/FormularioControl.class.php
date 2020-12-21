@@ -151,6 +151,8 @@ class FormularioControl extends ControladorBase{
 		}
 		$alte3_html->setHTMLLiNavItem('pruebas', 'inicio', 'Pruebas');
 		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
+		$alte3_html->setHTMLLiNavItem('tblcampos', 'inicio', 'Generar tabla de campos');
+		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
 		$this->arr_html_tag['li_nav_item'] = $arr_li_nav_item;
 	}
 }
