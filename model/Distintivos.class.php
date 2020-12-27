@@ -48,7 +48,7 @@ class Distintivos{
 					"arr_pag_ant"=>array()
 				)
 			),
-			"tablaconsulta"=>array(
+			"catvistagen"=>array(
 				"cat_usuario"=>array(
 					"titulo_pagina"=>"Consulta",
 					"arr_pag_ant"=>array()
@@ -58,11 +58,13 @@ class Distintivos{
 					"arr_pag_ant"=>array()
 				),
 			),
-			"catforma"=>array(
+			"catfrmgen"=>array(
 				"cat_usuario"=>array(
 					"titulo_pagina"=>"Catálogo",
 					"arr_pag_ant"=>array()
 				),
+			),
+			"catfrmgpo"=>array(
 				"cat_grupo"=>array(
 					"titulo_pagina"=>"Catálogo",
 					"arr_pag_ant"=>array()

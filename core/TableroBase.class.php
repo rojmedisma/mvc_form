@@ -42,9 +42,9 @@ class TableroBase extends ControladorBase{
 		$cat_usuario_id = (isset($_REQUEST['cat_usuario_id']))? intval($_REQUEST['cat_usuario_id']) : 0;
 		$cat_grupo_id = (isset($_REQUEST['cat_grupo_id']))? intval($_REQUEST['cat_grupo_id']) : 0;
 		$alte3_html = new ALTE3HTML();
-		$alte3_html->setArrHTMLTagLiNavItemCat('cat_usuario_id', $cat_usuario_id, $this->getControlador(), $this->getAccion(), 'tablaconsulta', 'cat_usuario', 'catforma', 'cat_usuario', $this->es_nuevo, 'fas fa-user', 'Usuarios');
+		$alte3_html->setArrHTMLTagLiNavItemCat('cat_usuario_id', $cat_usuario_id, $this->getControlador(), $this->getAccion(), 'catvistagen', 'cat_usuario', 'catfrmgen', 'cat_usuario', $this->es_nuevo, 'fas fa-user', 'Usuarios');
 		$tag_lnic_cat_usuario = $alte3_html->getHTMLContenido();
-		$alte3_html->setArrHTMLTagLiNavItemCat('cat_grupo_id', $cat_grupo_id, $this->getControlador(), $this->getAccion(), 'tablaconsulta', 'cat_grupo', 'catforma', 'cat_grupo', $this->es_nuevo, 'fas fa-users', 'Grupos');
+		$alte3_html->setArrHTMLTagLiNavItemCat('cat_grupo_id', $cat_grupo_id, $this->getControlador(), $this->getAccion(), 'catvistagen', 'cat_grupo', 'catfrmgpo', 'cat_grupo', $this->es_nuevo, 'fas fa-users', 'Grupos');
 		$tag_lnic_cat_grupo = $alte3_html->getHTMLContenido();
 		$this->arr_html_tag['li_ni_sb_cat'] = array(
 			$tag_lnic_cat_usuario,

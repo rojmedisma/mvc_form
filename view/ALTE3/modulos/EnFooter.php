@@ -39,7 +39,7 @@
 	</div>
 	<!-- Grid row -->
 	<div class="text-center">
-		Copyright<span> &copy; <?php echo date("Y"); ?></span>  <a href="https://ismaelrojas.com" target="irm">Ismael Rojas</a>  Versión 1.1.0.0
+		Copyright<span> &copy; <?php echo date("Y"); ?></span>  <a href="https://ismaelrojas.com" target="irm">Ismael Rojas</a>  Versión 1.1.1.8
 	</div>
 </div>
 <!-- Footer Links -->

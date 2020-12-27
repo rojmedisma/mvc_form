@@ -1,12 +1,12 @@
 <?php
 /**
- * Extensión para todas las clases dentro de la carpeta <strong>model</strong>
+ * Extensión para todas las clases dentro de la carpeta "model"
  * @author Ismael
  *
  */
 class ModeloBase extends Ayuda{
-	private $arr_tbl;
 	private $arr_reg;
+	protected $arr_tbl;
 	protected $bd;
 	protected $tbl_nom;
 	protected $cmp_id_nom;
@@ -20,7 +20,6 @@ class ModeloBase extends Ayuda{
 	 */
 	public function setArrTbl($and="") {
 		$and_ft = " AND `borrar` IS NULL ".$and;
-		
 		$arr_tbl = $this->bd->getArrDeTabla($this->tbl_nom, $and_ft, $this->cmp_id_nom);
 		$this->arr_tbl = $arr_tbl;
 	}
@@ -85,5 +84,13 @@ class ModeloBase extends Ayuda{
 	 */
 	public function getArrCmpsTbl() {
 		return $this->bd->getArrCmpsTbl($this->tbl_nom);
+	}
+	/**
+	 * Ordena la tabla mediante la columna "orden" y vuelve a asignar un orden en dicha columna
+	 */
+	protected function reordenar(){
+		$query = "SET @rownumber = 0; ";
+		$query .= "UPDATE `".$this->bd->getBD()."`.`".$this->tbl_nom."` SET `orden` = (@rownumber:=@rownumber+1) ORDER BY `orden` ASC";
+		$this->bd->ejecutaQryMultiple($query);
 	}
 }

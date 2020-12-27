@@ -16,7 +16,7 @@ class GuardarControl extends ControladorBase{
 	public function cat_usuario() {
 		$cat_usuario_id = (isset($_REQUEST['cat_usuario_id']))? intval($_REQUEST['cat_usuario_id']) : 0;
 		$clave= (isset($_REQUEST['clave']))? $_REQUEST['clave'] : "";
-		if(!$this->tienePermiso('ae_usuario')){
+		if(!$this->tienePermiso('ae-usuario')){
 			$this->redireccionaErrorAccion('sin_permisos', array('tit_accion'=>'Guardar usuario'));
 		}
 		$cat_usuario = new CatUsuario();
@@ -45,4 +45,31 @@ class GuardarControl extends ControladorBase{
 		}
 		redireccionar($this->controlador_destino, $this->accion_destino, array('cat_usuario_id'=>$cat_usuario_id));
 	}
+	public function cat_grupo() {
+		$cat_grupo_id = (isset($_REQUEST['cat_grupo_id']))? intval($_REQUEST['cat_grupo_id']) : 0;
+		if(!$this->tienePermiso('ae-grupo')){
+			$this->redireccionaErrorAccion('sin_permisos', array('tit_accion'=>'Guardar grupo'));
+		}
+		$cat_grupo = new CatN('cat_grupo');
+		$arr_cmps_cu = $cat_grupo->getArrCmpsTbl();
+		$arr_cmps = array();
+		
+		foreach($arr_cmps_cu as $arr_cmps_cu_det){
+			$cmp_nom = $arr_cmps_cu_det['Field'];
+			switch($cmp_nom){
+				case 'cat_grupo_id':
+				case 'borrar':
+					break;
+				default:
+					$arr_cmps[$cmp_nom] = txt_sql($_REQUEST[$cmp_nom]);
+					break;
+			}
+		}
+		$log = new Log();
+		$cat_grupo->setGuardarReg($arr_cmps, $cat_grupo_id);
+		$cat_grupo_id = $cat_grupo->getCmpIdVal();
+		$log->setRegLog('cat_grupo_id', $cat_grupo_id, 'Guardar', 'Aviso', 'Se guardó registro de Catálogo de grupo');
+		redireccionar($this->controlador_destino, $this->accion_destino, array('cat_grupo_id'=>$cat_grupo_id));
+	}
+	
 }

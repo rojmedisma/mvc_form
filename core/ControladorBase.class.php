@@ -20,6 +20,8 @@ class ControladorBase{
 	protected $arr_html_tag = array();
 	private $con_menu_lateral_fijo = false;	//Si se va mostrar el menú lateral, esta bandera permite activar las librerías necesarias
 	protected $es_nuevo = true;	//Es documento/formulario nuevo
+	protected array $arr_tabla = array();	//Arreglo para almacenar el contenido de tablas o vistas de consulta
+	protected $arr_param = array();	//Arreglo de variables
 	
 	/**
 	 * Modifica el título principal de la página actual (Función obsoleta, ahora se usa setPaginaDistintivos)
@@ -413,5 +415,28 @@ class ControladorBase{
 		}else{
 			return "";
 		}
+	}
+	/**
+	 * Devuelve el contenido de la variable arr_tabla que contiene un arreglo de tablas o vistas de consulta
+	 * @return array
+	 */
+	public function getArrTabla() {
+		return $this->arr_tabla;
+	}
+	/**
+	 * Devuelve el valor del parámetro previamente asignado en el arreglo arr_param
+	 * @param string $nom_parametro
+	 * @return variant
+	 */
+	protected function getParametro($nom_parametro) {
+		$parametro = valorEnArreglo($this->arr_param, $nom_parametro, true);
+		return $parametro;
+	}
+	/**
+	 * Devuelve el valor de la bandera que indica si el docmuento actual es nuevo o no
+	 * @return bool
+	 */
+	public function getEsNuevo() {
+		return $this->es_nuevo;
 	}
 }

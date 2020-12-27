@@ -23,7 +23,7 @@ class BaseDatos extends Ayuda{
 		$this->bd = $bd;
 	}
 	/**
-	 * Cambia el tipo de conexión actual a la del usuario asignado en los parámetros de configuración <strong>adm_usr</strong>
+	 * Cambia el tipo de conexión actual a la del usuario asignado en los parámetros de configuración "adm_usr"
 	 */
 	public function setAdminConexion(){
 		//$this->mysqli->close();
@@ -201,7 +201,7 @@ class BaseDatos extends Ayuda{
 		}
 	}
 	/**
-	 * Ejecuta una sentencia query tipo <strong>INSERT</strong> y devuelve el Id Llave con autoincremento
+	 * Ejecuta una sentencia query tipo "INSERT" y devuelve el Id Llave con autoincremento
 	 * @param string $qry
 	 * @return integer
 	 */
@@ -215,7 +215,7 @@ class BaseDatos extends Ayuda{
 		}
 	}
 	/**
-	 * Ejecuta una sentencia query tipo <strong>INSERT</strong> mandando com argumento el arreglo de campos con valores y la tabla
+	 * Ejecuta una sentencia query tipo "INSERT" mandando com argumento el arreglo de campos con valores y la tabla
 	 * @param array $arr_cmps Arreglo de campos (nombre => valor)
 	 * @param string $tbl_nom Nombre de la tabla
 	 * @return number
@@ -247,5 +247,19 @@ class BaseDatos extends Ayuda{
 			$txt_adicional = "";
 		}
 		return $txt_adicional;
+	}
+	/**
+	 * Función para ejecución de múltiples sentencias mediante multi_query
+	 * @param string $qry
+	 * @return variant
+	 */
+	public function ejecutaQryMultiple($qry){
+		$rs = $this->mysqli->multi_query($qry);
+		$this->qry = $qry;
+		if(!$rs){
+			die($this->getTagErrorSQL($qry));
+		}else{
+			return $rs;
+		}
 	}
 }

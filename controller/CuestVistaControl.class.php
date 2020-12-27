@@ -33,7 +33,7 @@ class CuestVistaControl extends CuestBase{
 	public function getHTMLBotones($cuestionario_id) {
 		$arr_tag = array();
 		$arr_tag[] = '<a href="'.define_controlador('cuestforma', 'inicio', false, array('cat_cuestionario_id'=>$this->getCatCuestionarioId(), 'cuestionario_id'=>$cuestionario_id)).'" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Abrir</a>';
-		if($this->tienePermiso("borrar_usr")){
+		if($this->tienePermiso("borrar-usr")){
 			$arr_tag[] = '<form class="d-inline frm_borrar" action="'.define_controlador('borrar', 'cuestionario').'" method="post">';
 			$arr_tag[] = '	'.$this->getHTMLCamposOcultosBase();
 			$arr_tag[] = '	<input type="hidden" name="reg_id" value="'.$cuestionario_id.'">';

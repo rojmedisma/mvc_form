@@ -5,9 +5,9 @@
  * Controlador para vistas de consulta de registros
  * @author Ismael Rojas
  */
-class TablaConsultaControl extends TableroBase{
-	private $arr_tabla = array();
-	private $arr_param = array();
+class CatVistaGenControl extends TableroBase{
+	
+	private string $cat_frm_controlador;
 	public function __construct() {
 		parent::__constructTablero();
 		$this->setPaginaDistintivos();
@@ -15,14 +15,17 @@ class TablaConsultaControl extends TableroBase{
 		$permiso = new Permiso();
 		$this->setArrPermisos($permiso->getArrPermisos());
 		$this->defineVista("Tablero.php");
+		
+		
 	}
 	/**
 	 * Controlador de consulta de registros del catálogo de usuarios
 	 */
 	public function cat_usuario() {
 		$this->arr_param = array(
-			'permiso_borrar'=>'borrar_usr',
-			'cmp_id_nom'=>'cat_usuario_id'
+			'permiso_borrar'=>'borrar-usr',
+			'cmp_id_nom'=>'cat_usuario_id',
+			'controlador_frm'=>'catfrmgen'
 		);
 		
 		$this->setArrDatoVistaValor('tit_tabla', 'Catálogo de usuarios');
@@ -36,8 +39,9 @@ class TablaConsultaControl extends TableroBase{
 	 */
 	public function cat_grupo() {
 		$this->arr_param = array(
-			'permiso_borrar'=>'borrar_grupo',
-			'cmp_id_nom'=>'cat_grupo_id'
+			'permiso_borrar'=>'borrar-grupo',
+			'cmp_id_nom'=>'cat_grupo_id',
+			'controlador_frm'=>'catfrmgpo'
 		);
 		
 		$this->setArrDatoVistaValor('tit_tabla', 'Catálogo de grupos');
@@ -46,11 +50,8 @@ class TablaConsultaControl extends TableroBase{
 		$this->arr_tabla = $cat_grupo->getArrTbl();
 		parent::setArrHTMLTagLiNavItem();	//Se crean los items del tablero
 	}
-	public function getArrTabla() {
-		return $this->arr_tabla;
-	}
 	public function getHTMLBtnAbrir($cmp_id_val) {
-		return '<a href="'.define_controlador('catforma', $this->getAccion(), false, array($this->getParametro('cmp_id_nom')=>$cmp_id_val)).'" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Abrir</a>';
+		return '<a href="'.define_controlador($this->getParametro('controlador_frm'), $this->getAccion(), false, array($this->getParametro('cmp_id_nom')=>$cmp_id_val)).'" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Abrir</a>';
 	}
 	public function getHTMLBtnBorrar($cmp_id_val) {
 		$arr_tag = array();
@@ -63,8 +64,7 @@ class TablaConsultaControl extends TableroBase{
 		}
 		return tag_string($arr_tag);
 	}
-	private function getParametro($nom_parametro) {
-		$parametro = valorEnArreglo($this->arr_param, $nom_parametro, true);
-		return $parametro;
+	public function getHTMLBtnAlta() {
+		return '<a href="'.define_controlador($this->getParametro('controlador_frm'), $this->getAccion()).'" class="btn btn-info btn-sm"><i class="fa fa-fw fa-file"></i> Alta registro</a>';
 	}
 }

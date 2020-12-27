@@ -78,3 +78,9 @@ En esta versión se toman los ajustes implementadios en el sistema taller_csp. E
 - Se metió pantalla para poder convertir el arreglo json **arr_cmp_atrib** generado por la clase modelo **FormularioALTE3** en una tabla
 - Nueva clase **TblCamposControl**.
 - Nuevo archivo vista **TblCampos.php**.
+
+## Versión 1.1.1.8
+
+> Cambios en la plataforma MVC
+
+- Homologación de archivos con los del proyecto **siap_igei**

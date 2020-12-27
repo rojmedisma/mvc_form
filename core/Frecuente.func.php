@@ -121,7 +121,7 @@ function txt_sql($valor, $es_string=true){
 	return $txt_sql;
 }
 /**
- * A partir del argumento <strong>cat_cuestionario_id</strong> cuyo valor es el Id de cuestionario, regresa un identificador o clave que se usa para nombrar (principalmente a modo de prefijo) archivos, variables o tablas que identifican al cuestionario actual.
+ * A partir del argumento "cat_cuestionario_id" cuyo valor es el Id de cuestionario, regresa un identificador o clave que se usa para nombrar (principalmente a modo de prefijo) archivos, variables o tablas que identifican al cuestionario actual.
  * @param integer $cat_cuestionario_id
  * @return string
  */

@@ -27,6 +27,7 @@ class CuestFormaControl extends CuestBase{
 		$this->arr_cmps_frm = $cuestionario->getArrRegCuestionario();
 		
 		$inhabilitar = intval($this->getCampoValor('inhabilitar'));
+		//Para identificar un registro nuevo, en los cuestinarios es a partir del campo inhabilitar, debido a que el registro puede ser creado en la tabla previamente antes de ser usado
 		$this->es_nuevo = ($inhabilitar)? true : false;
 		
 		$this->setArrHTMLTagLiNavItemCuestFrm();

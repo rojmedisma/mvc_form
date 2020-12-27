@@ -59,9 +59,10 @@ class ErrorControl extends ControladorBase{
 	 * Acción que despliega el error producido al no encontrarse ninguna función o método con el nombre obtenido a a partir del nombre de la acción para la clase indicada en el nombre del controlador
 	 */
 	public function sin_metodo(){
+		$clase= (isset($_REQUEST['clase']))? $_REQUEST['clase'] : '[Vacio]';
 		$metodo= (isset($_REQUEST['metodo']))? $_REQUEST['metodo'] : '[Vacio]';
 		$this->tit_error= 'Error interno';
-		$this->txt_error= 'Se produjo un error al intentar identificar el método del controlador con el nombre: "'.$metodo.'". Favor de contactar al administrador del sistema';
+		$this->txt_error= 'Se produjo un error al identificar la acción "'.$metodo.'", en el controlador "'.$clase.'". Veríficar que dicha acción exista en el controlador. Favor de contactar al administrador del sistema.';
 	}
 	/**
 	 * Acción que despliega el error producido al ejecutar un URL incompleto y que no contiene todos los argumentos necesarios para ejecutar la acción requerida

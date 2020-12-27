@@ -1,13 +1,13 @@
 <?php
 /**
- * Descripción de CatFormaControl
+ * Descripción de CatFrmGenControl
  * Controlador de formularios
  *
  * @author Ismael Rojas
  */
-class CatFormaControl extends TableroBase{
+class CatFrmGenControl extends TableroBase{
 	public object $frm_al3;
-	private array $arr_vista_grupo = array();
+	private int $cat_usuario_id;
 	public function __construct() {
 		parent::__constructTablero();
 		$this->setUsarLibForma(true);
@@ -22,24 +22,11 @@ class CatFormaControl extends TableroBase{
 	public function cat_usuario() {
 		$this->setUsarLibVista(true);
 		$cat_usuario_id = (isset($_REQUEST['cat_usuario_id']))? intval($_REQUEST['cat_usuario_id']) : 0;
+		$this->cat_usuario_id = $cat_usuario_id;
 		$this->setArrDatoVistaValor('tit_forma', 'Catálogo de usuarios');
 		if($cat_usuario_id){
-			$this->cargarFrmUsuario($cat_usuario_id);
+			$this->cargarFrmUsuario();
 			$this->setArrVistaGrupo();
-			$this->es_nuevo = false;
-		}
-		$this->frm_al3 = new FormularioALTE3($this->arr_cmps_frm);
-		parent::setArrHTMLTagLiNavItem();	//Se crean los items del tablero
-	}
-	/**
-	 * Controlador de formulario para el Catálogo de grupos
-	 */
-	public function cat_grupo() {
-		$this->setUsarLibVista(true);
-		$cat_grupo_id = (isset($_REQUEST['cat_grupo_id']))? intval($_REQUEST['cat_grupo_id']) : 0;
-		$this->setArrDatoVistaValor('tit_forma', 'Catálogo de grupos');
-		if($cat_grupo_id){
-			$this->cargarFrmGrupo($cat_grupo_id);
 			$this->es_nuevo = false;
 		}
 		$this->frm_al3 = new FormularioALTE3($this->arr_cmps_frm);
@@ -49,7 +36,8 @@ class CatFormaControl extends TableroBase{
 	 * Genera la información necesario para desplegar en el formulario de Catálogo de usuarios, como el arreglo arr_cmps_frm
 	 * @param int $cat_usuario_id
 	 */
-	private function cargarFrmUsuario($cat_usuario_id) {
+	private function cargarFrmUsuario() {
+		$cat_usuario_id = $this->cat_usuario_id;
 		$cat_usuario = new CatUsuario();
 		$cat_usuario->setArrReg($cat_usuario_id);
 		$this->arr_cmps_frm = $cat_usuario->getArrReg();
@@ -59,16 +47,6 @@ class CatFormaControl extends TableroBase{
 		$this->setArrDatoVistaValor('and_estado', $and_estado);
 	}
 	/**
-	 * Genera la información necesario para desplegar en el formulario de Catálogo de grupos, como el arreglo arr_cmps_frm
-	 * @param int $cat_grupo_id
-	 */
-	private function cargarFrmGrupo($cat_grupo_id) {
-		$cat_grupo = new CatGrupo();
-		$cat_grupo->setArrReg($cat_grupo_id);
-		$this->arr_cmps_frm = $cat_grupo->getArrReg();
-		
-	}
-	/**
 	 * Se genera arreglo con el contenido del el query join de las tablas: grupo, cat_grupo y cat_permiso
 	 */
 	private function setArrVistaGrupo(){
@@ -76,14 +54,7 @@ class CatFormaControl extends TableroBase{
 		if($cat_grupo_id){
 			$grupo = new Grupo();
 			$grupo->setArrViGrupoDeCatGpoId($cat_grupo_id);
-			$this->arr_vista_grupo = $grupo->getArrViGrupo();
+			$this->arr_tabla = $grupo->getArrViGrupo();
 		}
-	}
-	/**
-	 * Devuelve el arreglo arr_vista_grupo
-	 * @return array
-	 */
-	public function getArrVistaGrupo() {
-		return $this->arr_vista_grupo;
 	}
 }
