@@ -35,7 +35,12 @@
 										</h3>
 									</div>
 									<div class="card-body">
-										<?php include_once 'modulos/Forma/FormAdminLTE3.php'; ?>
+										<?php 
+										switch (strtolower($controlador_obj->getAccion())){
+											case 'forma':				include_once 'modulos/Forma/FormAdminLTE3.php';		break;
+											case 'forma_propiedades':	include_once 'modulos/Forma/FormaPropiedades.php';	break;
+										}
+										?>
 									</div><!-- /.card-body -->
 								</div><!-- /.card -->
 							</div>
@@ -69,5 +74,10 @@
 		<!-- ./wrapper -->
 		<?php include_once 'modulos/Scripts.php'; ?>
 		<?php include_once 'modulos/ScriptCuestForma.php'; ?>
+		<?php 
+		if(strtolower($controlador_obj->getAccion()) == 'forma_propiedades'){
+			include_once 'modulos/ScriptCuestProp.php';
+		}
+		?>
 	</body>
 </html>

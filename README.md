@@ -79,8 +79,28 @@ En esta versión se toman los ajustes implementadios en el sistema taller_csp. E
 - Nueva clase **TblCamposControl**.
 - Nuevo archivo vista **TblCampos.php**.
 
-## Versión 1.1.1.8
+## Versión 1.2.1.8
 
 > Cambios en la plataforma MVC
 
-- Homologación de archivos con los del proyecto **siap_igei**
+- Homologación de archivos con los del proyecto **siap_igei** hasta la versión 1.6.0.8
+- Archivo js **Forma.js**. Nueva implementación en función **cmpSelect** para el llenado del campo **_desc**.
+- Archivo js **Forma.js**. Nueva implementación en función **cmpSelect** para el despliegue de secciones al seleccionar opción tipo: "Otro especificar".
+- Archivo js **Forma.js**. Nueva función **llenarCmpDesc**.
+- Archivo js **Forma.js**. Nueva función **desplegarEsp**.
+- Archvo js **Principal.js**. Se crearon las funciones: **limpiarCamposDentroDe**, **limpiarCamposEnDOM**, **ocultarSeccionesEn**, **ocultarDOM**.
+
+> Cambios en el proyecto
+
+- Nuevo archivo js **FormaPropiedades.js**.
+- Se creó nuevo formulario para documentar las nuevas propiedades o funcionalidades creadas.
+- Controlador **FormularioControl**. Nueva acción **forma_propiedades**.
+
+
+
+
+
+
+
+
+

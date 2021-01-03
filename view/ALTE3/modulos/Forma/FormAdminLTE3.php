@@ -1,5 +1,6 @@
 <!-- Forma AdminLTE3 -->
 <form role="form" method="post" action="<?php echo define_controlador('formulario','guardar') ?>">
+	<?php echo $controlador_obj->getHTMLCamposOcultosBase();?>
 	<?php echo $controlador_obj->frm_al3->cmpOculto('cuestionario_id', $controlador_obj->getCampoValor('cuestionario_id'));?>
 	<div class="row">
 		<div class="col-md-6">
@@ -79,9 +80,6 @@
 	<div class="row">
 		<div class="col-md-6">
 			<?php echo $controlador_obj->frm_al3->cmpNum('p13', 2, '13. Campo numérico', $controlador_obj->getArrAtributoCmp('p13')) ?>
-		</div>
-		<div class="col-md-6">
-			<?php echo $controlador_obj->frm_al3->cmpNum('p14', 0, '13. Campo numérico') ?>
 		</div>
 	</div>
 	<div class="row">

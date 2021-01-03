@@ -254,6 +254,20 @@ class ControladorBase{
 		return valorEnArreglo($arr_cmps_frm, $cmp_nom);
 	}
 	/**
+	 * Complemento PHP con la función en javaScript "llenarCmpDesc" en "Formas.js" para el funcionamiento de: Despliega valor de la opción seleccionada del campo "select" en el/los div(s) que contengan la clase con el nombre tipo: "div_"+[nombre de campo desc]+"_desp".
+	 * Devuelve el nombre de la clase necesaria para el correcto funcionamiento.
+	 * @param string $cmp_nom
+	 * @param string $val_opc_id
+	 * @return string
+	 */
+	public function getCssDivEsp($cmp_nom, $val_opc_id) {
+		if($this->getCampoValor($cmp_nom)==$val_opc_id){
+			return 'div_'.$cmp_nom.'_esp';
+		}else{
+			return 'div_'.$cmp_nom.'_esp d-none';
+		}
+	}
+	/**
 	 * Del arreglo de variables con valores para la vista, devuelve el valor del de la variable indicada en el arreglo
 	 * @param string $cmp_nom
 	 * @return variant

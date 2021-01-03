@@ -164,3 +164,120 @@ function f_asigna_arg_url_en_campos(v_forma, v_url_arg) {
                 
     }
 };
+
+/**
+ * Limpia todos los campos contenidos dentro del selector o selectores definidos el argumento tipo arreglo a_selector
+ * @param {bool} v_aplicar	Condición si se va a aplicar la limpieza o no. En caso contrario, si la bandera v_limpiar_y_bloquear es verdadera, se desbloquean los campos únicamente
+ * @param {array} a_selector	Arreglo con los textos para identificar la sección o div a limpiar, ejemplo:  con el id (#[nombre]) o la clase (.[nombre])
+ * @param {bool} v_limpiar_y_bloquear	Bandera que indica si además de limpiar se va a hacer bloqueo de campos. Default es true.
+ */
+function limpiarCamposDentroDe(v_aplicar, a_selector, v_limpiar_y_bloquear=true){
+	if(a_selector.length){
+		a_selector.forEach(function(v_selector){
+			limpiarCamposEnDOM(v_aplicar, $(v_selector), v_limpiar_y_bloquear);
+		});
+	}
+}
+/**
+ * Limpia todos los campos contenidos dentro del objeto tipo DOM o_DOM
+ * @param {bool} v_aplicar	Condición si se va a aplicar la limpieza o no. En caso contrario, si la bandera v_limpiar_y_bloquear es verdadera, se desbloquean los campos únicamente
+ * @param {Object} o_DOM	Objeto tipo DOM
+ * @param {bool} v_limpiar_y_bloquear	Bandera que indica si además de limpiar se va a hacer bloqueo de campos. Default es true. 
+ */
+function limpiarCamposEnDOM(v_aplicar, o_DOM, v_limpiar_y_bloquear=true){
+	if(o_DOM.length){
+		o_DOM.each(function(){
+			//var o_input = $(this).find("input");
+			var o_input = $(this).find("input");	//Todos los campos input
+			var o_select = $(this).find("select");	//Todos los campos select
+			var o_textarea = $(this).find("textarea");	//Todos los campos textarea
+			//Para campos input
+			if(o_input.length){
+				o_input.each(function(){
+					if($(this).attr('type') === 'checkbox' || $(this).attr('type') === 'radio'){
+						if(v_aplicar){
+							$(this).prop( "checked", false );
+						}
+					}else{
+						if(v_aplicar){
+							$(this).val("");
+						}
+					}
+				});
+
+				//Si además de aplicar limpieza se apliva bloqueo...
+				if(v_limpiar_y_bloquear){
+					o_input.attr("disabled", v_aplicar);
+				}
+			}
+			//Para campos textarea
+			if(o_textarea.length){
+				if(v_aplicar){
+					o_textarea.val("");
+				}
+				//Si además de aplicar limpieza se apliva bloqueo...
+				if(v_limpiar_y_bloquear){
+					o_textarea.attr("disabled", v_aplicar);
+				}
+			}
+			//Para campos select
+			if(o_select.length){
+				var o_select2 = $(this).find("select[class~='select2']");
+
+				if(o_select2.length){
+					if(v_aplicar){
+						//El widget Select2 no permite limpiar los campos select, debido a eso, primero se debe destruir antes de limpiar el campo
+						o_select2.select2('destroy');
+					}else{
+						//Se vuelve a revertir habilitando de nuevo el widget Select2
+						o_select2.select2();
+					}
+				}
+				if(v_aplicar){
+					o_select.val("");
+				}
+				//Si además de aplicar limpieza se apliva bloqueo...
+				if(v_limpiar_y_bloquear){
+					o_select.attr("disabled", v_aplicar);
+				}else{
+					//Si no se va a bloquear, se vuelve a habilitar el widget Select2
+					if(o_select2.length){
+						o_select2.select2();
+					}
+				}
+			}
+		});
+	}
+}
+/**
+ * Limpia y oculta todos los campos contenidos dentro del selector o selectores definidos el argumento tipo arreglo a_selector
+ * @param {bool} v_aplicar	Condición si se va a aplicar la limpieza o no. En caso contrario, si la bandera v_limpiar_y_bloquear es verdadera, se desbloquean los campos únicamente
+ * @param {array} a_selector	Arreglo con los textos para identificar la sección o div a limpiar, ejemplo:  con el id (#[nombre]) o la clase (.[nombre])
+ * @param {bool} v_limpiar_campos	Bandera que indica si además de limpiar se va a hacer bloqueo de campos. Default es true. 
+ */
+function ocultarSeccionesEn(v_aplicar, a_selector, v_limpiar_campos = true){
+	if(a_selector.length){
+		a_selector.forEach(function(v_selector){
+			ocultarDOM(v_aplicar, $(v_selector), v_limpiar_campos);
+		});
+	}
+}
+/**
+ * Limpia y oculta todos los campos contenidos dentro del objeto DOM definido en el argumento o_DOM
+ * @param {bool} v_aplicar
+ * @param {Object} o_DOM
+ * @param {bool} v_limpiar_y_bloquear
+ */
+function ocultarDOM(v_aplicar, o_DOM, v_limpiar_y_bloquear = true){
+	if(o_DOM.length){
+		limpiarCamposEnDOM(v_aplicar, o_DOM, v_limpiar_y_bloquear);
+		o_DOM.each(function(){
+			if(v_aplicar){
+				$(this).hide(400);
+			}else{
+				$(this).show(400);
+			}
+		});
+		
+	}
+}

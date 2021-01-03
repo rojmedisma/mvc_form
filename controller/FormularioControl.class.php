@@ -5,14 +5,13 @@ class FormularioControl extends ControladorBase{
 	private array $arr_atrib_campos=array();
 	public array $arr_tmp_options = array();
 	private array $arr_reglas_val = array();
+	private string $tbl_cuest_nom;
+	
 	public function forma() {
+		$this->tbl_cuest_nom = "cuestionario";
 		$this->setArrHTMLTagLiNavItem();
 		
-		$bd = new BaseDatos();
-		
-		$arr_tbl =  $bd->getArrDeTabla('cuestionario', " AND `cuestionario_id` = 1");
-		$arr_cmps = $arr_tbl[0];
-		$this->arr_cmps_frm = $arr_cmps;
+		$this->setArrCmpsFrm();
 		
 		$lectura = false;
 		$readonly = false;
@@ -70,8 +69,10 @@ class FormularioControl extends ControladorBase{
 			),
 			"p13"=>array(
 				"readonly"=>$readonly,
-			)
+			),
+			
 		);
+		//$this->arr_atrib_campos = array();
 		
 		$this->arr_tmp_options = array(
 			array('id_val'=>1, 'desc_val'=>'Valor 1'),
@@ -85,12 +86,12 @@ class FormularioControl extends ControladorBase{
 		);
 		
 		$this->setArrReglasVal();
-		$valida_cuest = new ValidarCuest($arr_cmps);
+		$valida_cuest = new ValidarCuest($this->arr_cmps_frm);
 		$valida_cuest->setArrValidaciones($this->arr_reglas_val);
 		$arr_validaciones = $valida_cuest->getArrValidaciones();
 		
 		
-		$this->frm_al3 =new FormularioALTE3($arr_cmps);
+		$this->frm_al3 = new FormularioALTE3($this->arr_cmps_frm);
 		$this->frm_al3->asignaValidaciones($arr_validaciones);
 		$this->frm_al3->setLectura($lectura);
 		$this->frm_al3->setUsarDivAgrupar($usar_div_agrupar);
@@ -98,13 +99,32 @@ class FormularioControl extends ControladorBase{
 		
 		$this->defineVista('Forma.php');
 	}
+	public function forma_propiedades() {
+		$this->tbl_cuest_nom = "cuest_prop";
+		$this->setArrHTMLTagLiNavItem();
+		
+		$this->setArrCmpsFrm();
+		$this->frm_al3 = new FormularioALTE3($this->arr_cmps_frm);
+		$this->frm_al3->setConSelect2(true);
+		$this->defineVista('Forma.php');
+	}
 	public function guardar(){
+		$controlador_origen = (isset($_REQUEST['controlador_fuente']))? $_REQUEST['controlador_fuente'] : '';
+		$accion_origen = (isset($_REQUEST['accion_fuente']))? $_REQUEST['accion_fuente'] : '';
+		if($accion_origen==""){
+			$this->redireccionaError("Acción origen no definida", "Declarar dentro del formulario el método <strong>getHTMLCamposOcultosBase</strong>");
+		}
+		switch (strtolower($accion_origen)){
+			case 'forma':				$this->tbl_cuest_nom = 'cuestionario'; break;
+			case 'forma_propiedades':	$this->tbl_cuest_nom = 'cuest_prop'; break;
+			default:	$this->tbl_cuest_nom = 'cuestionario'; break;
+		}
 		$bd = new BaseDatos();
-		$arr_cmps_cu = $bd->getArrCmpsTbl('cuestionario');
+		$arr_cmps_cu = $bd->getArrCmpsTbl($this->tbl_cuest_nom);
 		foreach ($arr_cmps_cu as $arr_cmps_cu_det){
 			$cmp_nom = $arr_cmps_cu_det['Field'];
 			switch($cmp_nom){
-				case 'cuestionario_id':
+				case $this->tbl_cuest_nom.'_id':
 					break;
 				default:
 					$arr_cmps[$cmp_nom] = (isset($_REQUEST[$cmp_nom]))? txt_sql($_REQUEST[$cmp_nom]) : "NULL";
@@ -113,10 +133,9 @@ class FormularioControl extends ControladorBase{
 		}
 		
 		$guardar = new Guardar();
-		$guardar->setGuardaCatalogo($arr_cmps, 'cuestionario', '1');
+		$guardar->setGuardaCatalogo($arr_cmps, $this->tbl_cuest_nom, '1');
 		
-		
-		redireccionar('formulario','forma');
+		redireccionar($controlador_origen,$accion_origen);
 	}
 	public function getArrAtributoCmp(string $cmp_id_nom):array{
 		$arr_atrib_campos = $this->arr_atrib_campos;
@@ -149,10 +168,19 @@ class FormularioControl extends ControladorBase{
 			$alte3_html->setHTMLLiNavItem('cat_usuario', 'vista', 'Catálogo de usuarios');
 			$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
 		}
-		$alte3_html->setHTMLLiNavItem('pruebas', 'inicio', 'Pruebas');
+		$alte3_html->setHTMLLiNavItem('formulario', 'forma_propiedades', 'Mas propiedades en Formulario');
 		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
 		$alte3_html->setHTMLLiNavItem('tblcampos', 'inicio', 'Generar tabla de campos');
 		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
+		$alte3_html->setHTMLLiNavItem('pruebas', 'inicio', 'Pruebas');
+		$arr_li_nav_item[] = $alte3_html->getHTMLContenido();
+		
 		$this->arr_html_tag['li_nav_item'] = $arr_li_nav_item;
+	}
+	private function setArrCmpsFrm() {
+		$bd = new BaseDatos();
+		$arr_tbl =  $bd->getArrDeTabla($this->tbl_cuest_nom, " AND `".$this->tbl_cuest_nom."_id` = 1");
+		$arr_cmps = $arr_tbl[0];
+		$this->arr_cmps_frm = $arr_cmps;
 	}
 }

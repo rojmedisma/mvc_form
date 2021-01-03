@@ -32,12 +32,12 @@ class TblCamposControl extends ControladorBase{
 		$arr_cmp_json = json_decode($this->cmp_json);
 
 		$arr_cmp_tbl = array();
-		foreach($arr_cmp_json as $arr_det){
+		foreach($arr_cmp_json as $cmp_id_nom=>$arr_det){
 			$arr_cmp_tbl_det = (object)[];
-			$arr_cmp_tbl_det->cmp_id_nom = $this->valorEnObjeto($arr_det, 'cmp_id_nom');
+			$arr_cmp_tbl_det->cmp_id_nom = $cmp_id_nom;
 			$arr_cmp_tbl_det->cmp_tipo = $this->valorEnObjeto($arr_det, 'cmp_tipo');
 			$arr_cmp_tbl_det->type = $this->valorEnObjeto($arr_det, 'type');
-			$arr_cmp_tbl_det->xls_tipo_id = $this->getXlsTipoId($arr_det);
+			$arr_cmp_tbl_det->xls_tipo_id = $this->getXlsTipoId($arr_det, $cmp_id_nom);
 
 			$arr_cmp_tbl[] = $arr_cmp_tbl_det;
 		}		
@@ -46,13 +46,13 @@ class TblCamposControl extends ControladorBase{
 	private function valorEnObjeto($arr_obj, $nom_cmp) {
 		return (isset($arr_obj->$nom_cmp))? $arr_obj->$nom_cmp : "";
 	}
-	private function getXlsTipoId($arr_obj){
+	private function getXlsTipoId($arr_obj, $cmp_id_nom){
 		$cmp_tipo = $this->valorEnObjeto($arr_obj, 'cmp_tipo');
-		$cmp_id_nom = $this->valorEnObjeto($arr_obj, 'cmp_id_nom');
+		$cmp_id_nom = $cmp_id_nom;
 		$xls_tipo_id = '';
 		switch($cmp_tipo){
 			case 'oculto':
-				$xls_tipo_id = $this->paraOculto($arr_obj);
+				$xls_tipo_id = $this->paraOculto($arr_obj, $cmp_id_nom);
 				break;
 			case 'text':
 				$xls_tipo_id = 'txt_255';
@@ -85,14 +85,15 @@ class TblCamposControl extends ControladorBase{
 		
 		return $xls_tipo_id;
 	}
-	private function paraOculto($arr_obj) {
-		$cmp_id_nom = $this->valorEnObjeto($arr_obj, 'cmp_id_nom');
+	private function paraOculto($arr_obj, $cmp_id_nom) {
 		$t_desc = strtolower(substr($cmp_id_nom, -5));
 		$tipo = '';
 		if($t_desc==='_desc'){
 			$tipo = $t_desc;
-		}elseif($cmp_id_nom == 'cuestionario_id'){
+		}elseif(substr($cmp_id_nom, -3) == '_id'){
 			$tipo = 'c_id';
+		}else{
+			$tipo = 'txt_255';
 		}
 		return $tipo;
 	}

@@ -36,6 +36,10 @@
 				</div>
 				<div class="col-12">
 					<h2>Tabla</h2>
+					<div class="alert alert-info">
+						<h5>Recordatorio</h5>
+						<p>Si el orden de los campos no es correcto y aún no se han insertado los campos en la tabla, entonces revisar que no se tenga asignado el arreglo de reglas de validación</p>
+					</div>
 					<table class="table">
 						<thead>
 							<tr>
